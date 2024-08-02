@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   var adunit = "ca-app-pub-3940256099942544/9214589741";
   initBannerAd() {
     bannerAd = BannerAd(
-        size: AdSize.banner,
+        size: AdSize.largeBanner,
         adUnitId: adunit,
         listener: BannerAdListener(onAdLoaded: (ad) {
           setState(() {
@@ -66,13 +66,15 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             CustomContainers(),
             SizedBox(
-              height: 50,
+              height: 40,
             ),
             isAdLoaded
-                ? SizedBox(
-                    height: bannerAd.size.height.toDouble(),
-                    width: bannerAd.size.width.toDouble(),
-                    child: AdWidget(ad: bannerAd),
+                ? Center(
+                    child: SizedBox(
+                      height: bannerAd.size.height.toDouble(),
+                      width: bannerAd.size.width.toDouble(),
+                      child: AdWidget(ad: bannerAd),
+                    ),
                   )
                 : SizedBox(
                     child: Center(
