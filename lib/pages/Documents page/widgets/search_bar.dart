@@ -13,15 +13,15 @@ class CustomSearchBar extends StatelessWidget {
         height: 60,
         width: double.infinity,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20), color: Color(0xffF2F7FF)),
+            borderRadius: BorderRadius.circular(20), color: const Color(0xffF2F7FF)),
         child: TextFormField(
           // focusNode: _focusNode
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
               border: InputBorder.none,
               prefixIconColor: Color.fromARGB(255, 127, 127, 131),
               labelText: 'Search Store',
               labelStyle: TextStyle(color: Color(0xff9694FF)),
-              prefixIcon: const Icon(
+              prefixIcon: Icon(
                 Icons.search,
                 size: 25,
               )),

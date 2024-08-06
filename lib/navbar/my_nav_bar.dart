@@ -37,7 +37,7 @@ class _MyNavBarState extends State<MyNavBar> {
       // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: Container(
         height: 70,
-        margin: EdgeInsets.all(20),
+        margin: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
@@ -45,7 +45,7 @@ class _MyNavBarState extends State<MyNavBar> {
               color: Colors.grey.withOpacity(0.5), // Shadow color with opacity
               spreadRadius: 5, // Spread radius
               blurRadius: 7, // Blur radius
-              offset: Offset(0, 3), // Offset in x and y direction
+              offset: const Offset(0, 3), // Offset in x and y direction
             ),
           ],
         ),

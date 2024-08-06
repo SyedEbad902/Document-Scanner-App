@@ -23,7 +23,7 @@ class CustomContainers extends StatelessWidget {
                   width: 142,
                   decoration: BoxDecoration(
                       border:
-                          Border.all(color: Color.fromARGB(255, 167, 167, 170)),
+                          Border.all(color: const Color.fromARGB(255, 167, 167, 170)),
                       borderRadius: BorderRadius.circular(10)),
                   child: Center(
                       child: Row(
@@ -34,9 +34,9 @@ class CustomContainers extends StatelessWidget {
                           width: 32,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
-                            color: Color(0xff9694FF),
+                            color: const Color(0xff9694FF),
                           ),
-                          child: Icon(
+                          child: const Icon(
                             Icons.person,
                             color: Colors.white,
                             size: 20,
@@ -45,15 +45,15 @@ class CustomContainers extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
-                              margin: EdgeInsets.only(left: 8),
-                              child: Text(
+                              margin: const EdgeInsets.only(left: 8),
+                              child: const Text(
                                 "Personal",
                                 style: TextStyle(
                                     fontSize: 12, fontWeight: FontWeight.w500),
                               )),
                           Container(
-                              margin: EdgeInsets.only(left: 8),
-                              child: Text(
+                              margin: const EdgeInsets.only(left: 8),
+                              child: const Text(
                                 "120 Files",
                                 style: TextStyle(
                                     fontSize: 12, fontWeight: FontWeight.w400),
@@ -69,14 +69,14 @@ class CustomContainers extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: ((context) => DocumentScreen())));
+                          builder: ((context) => const DocumentScreen())));
                 },
                 child: Container(
                   height: 74,
                   width: 142,
                   decoration: BoxDecoration(
                       border:
-                          Border.all(color: Color.fromARGB(255, 167, 167, 170)),
+                          Border.all(color: const Color.fromARGB(255, 167, 167, 170)),
                       borderRadius: BorderRadius.circular(10)),
                   child: Center(
                       child: Row(
@@ -87,9 +87,9 @@ class CustomContainers extends StatelessWidget {
                           width: 32,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
-                            color: Color(0xffFF7976),
+                            color: const Color(0xffFF7976),
                           ),
-                          child: Icon(
+                          child: const Icon(
                             Icons.folder,
                             color: Colors.white,
                             size: 20,
@@ -99,15 +99,15 @@ class CustomContainers extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
-                              margin: EdgeInsets.only(left: 8),
-                              child: Text(
+                              margin: const EdgeInsets.only(left: 8),
+                              child: const Text(
                                 "Documents",
                                 style: TextStyle(
                                     fontSize: 12, fontWeight: FontWeight.w500),
                               )),
                           Container(
-                              margin: EdgeInsets.only(left: 8),
-                              child: Text(
+                              margin: const EdgeInsets.only(left: 8),
+                              child: const Text(
                                 "15 Files",
                                 style: TextStyle(
                                     fontSize: 12, fontWeight: FontWeight.w400),
@@ -120,7 +120,7 @@ class CustomContainers extends StatelessWidget {
               )
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           Row(
@@ -133,7 +133,7 @@ class CustomContainers extends StatelessWidget {
                   width: 142,
                   decoration: BoxDecoration(
                       border:
-                          Border.all(color: Color.fromARGB(255, 167, 167, 170)),
+                          Border.all(color: const Color.fromARGB(255, 167, 167, 170)),
                       borderRadius: BorderRadius.circular(10)),
                   child: Center(
                       child: Row(
@@ -144,9 +144,9 @@ class CustomContainers extends StatelessWidget {
                           width: 32,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
-                            color: Color(0xff5DDAB4),
+                            color: const Color(0xff5DDAB4),
                           ),
-                          child: Icon(
+                          child: const Icon(
                             Icons.pause_circle_filled,
                             color: Colors.white,
                             size: 20,
@@ -155,15 +155,15 @@ class CustomContainers extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
-                              margin: EdgeInsets.only(left: 8),
-                              child: Text(
+                              margin: const EdgeInsets.only(left: 8),
+                              child: const Text(
                                 "Videos",
                                 style: TextStyle(
                                     fontSize: 12, fontWeight: FontWeight.w500),
                               )),
                           Container(
-                              margin: EdgeInsets.only(left: 8),
-                              child: Text(
+                              margin: const EdgeInsets.only(left: 8),
+                              child: const Text(
                                 "15 Files",
                                 style: TextStyle(
                                     fontSize: 12, fontWeight: FontWeight.w400),
@@ -181,7 +181,7 @@ class CustomContainers extends StatelessWidget {
                   width: 142,
                   decoration: BoxDecoration(
                       border:
-                          Border.all(color: Color.fromARGB(255, 167, 167, 170)),
+                          Border.all(color: const Color.fromARGB(255, 167, 167, 170)),
                       borderRadius: BorderRadius.circular(10)),
                   child: Center(
                       child: Row(
@@ -192,9 +192,9 @@ class CustomContainers extends StatelessWidget {
                           width: 32,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
-                            color: Color(0xff57CAEB),
+                            color: const Color(0xff57CAEB),
                           ),
-                          child: Icon(
+                          child: const Icon(
                             Icons.image,
                             color: Colors.white,
                             size: 20,
@@ -204,15 +204,15 @@ class CustomContainers extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
-                              margin: EdgeInsets.only(left: 8),
-                              child: Text(
+                              margin: const EdgeInsets.only(left: 8),
+                              child: const Text(
                                 "Gallery",
                                 style: TextStyle(
                                     fontSize: 12, fontWeight: FontWeight.w500),
                               )),
                           Container(
-                              margin: EdgeInsets.only(left: 8),
-                              child: Text(
+                              margin: const EdgeInsets.only(left: 8),
+                              child: const Text(
                                 "15 Files",
                                 style: TextStyle(
                                     fontSize: 12, fontWeight: FontWeight.w400),

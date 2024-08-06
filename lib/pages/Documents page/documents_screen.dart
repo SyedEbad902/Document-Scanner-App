@@ -23,20 +23,20 @@ class _DocumentScreenState extends State<DocumentScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            DocumentAppBar(),
-            Align(
+           const DocumentAppBar(),
+           const Align(
               alignment: Alignment.center,
               child: Text(
                 "Documents",
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
             ),
-            CustomSearchBar(),
+           const CustomSearchBar(),
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: DropdownButton<String>(
                 value: selectedValue,
-                hint: Text('Sort..'),
+                hint: const Text('Sort..'),
                 items: items.map((String item) {
                   return DropdownMenuItem<String>(
                     value: item,
@@ -50,7 +50,7 @@ class _DocumentScreenState extends State<DocumentScreen> {
                 },
               ),
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.all(10),
               child: Text(
                 "Today",
@@ -59,11 +59,11 @@ class _DocumentScreenState extends State<DocumentScreen> {
             ),
             ListView.builder(
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: 2,
                 itemBuilder: (context, index) {
                   return Container(
-                    margin: EdgeInsets.only(top: 5),
+                    margin: const EdgeInsets.only(top: 5),
                     // padding: EdgeInsets.only(top: 8),
                     height: 73,
                     width: double.infinity,
@@ -77,29 +77,29 @@ class _DocumentScreenState extends State<DocumentScreen> {
                         // padding: EdgeInsets.only(top: 20),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            border: Border.all(color: Color(0xff9694FF))),
+                            border: Border.all(color: const Color(0xff9694FF))),
                         height: 50,
                         width: 50,
-                        child: Center(
+                        child: const Center(
                           child: Text(
                             ".pdf",
                             style: TextStyle(color: Color(0xff9694FF)),
                           ),
                         ),
                       ),
-                      title: Text(
+                      title: const Text(
                         "Brief-task-today.pdf",
                         style: TextStyle(
                             fontSize: 14, fontWeight: FontWeight.bold),
                       ),
-                      subtitle: Text(
+                      subtitle: const Text(
                         "11 Pages",
                         style:
                             TextStyle(fontSize: 12, color: Color(0xff9694FF)),
                       ),
                       trailing: IconButton(
                           onPressed: () {},
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.star,
                             color: Color(0xff9694FF),
                           )),

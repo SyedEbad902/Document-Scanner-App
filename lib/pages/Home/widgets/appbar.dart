@@ -11,7 +11,7 @@ class CustomAppBar extends StatelessWidget {
       // color: Colors.grey,
       height: 70,
       width: double.infinity,
-      margin: EdgeInsets.only(
+      margin: const EdgeInsets.only(
         top: 20,
       ),
       child: Row(
@@ -19,14 +19,14 @@ class CustomAppBar extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {},
-            child: Icon(
+            child: const Icon(
               Icons.menu,
               size: 28,
             ),
           ),
 
           // ),
-          CircleAvatar(
+          const CircleAvatar(
             radius: 17,
             backgroundColor: Colors.black,
           )

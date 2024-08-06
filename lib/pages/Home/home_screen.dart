@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ad.dispose();
           print(error);
         })),
-        request: AdRequest());
+        request: const AdRequest());
     bannerAd.load();
   }
 
@@ -45,27 +45,27 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CustomAppBar(),
-            Text(
+            const CustomAppBar(),
+            const Text(
               "Dashboard Files",
               style: TextStyle(
                   fontSize: 24,
                   color: Colors.black,
                   fontWeight: FontWeight.bold),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
-            CustomSearchBar(),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
+            const CustomSearchBar(),
+            const Padding(
+              padding: EdgeInsets.all(10.0),
               child: Text(
                 "Recently",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
             ),
-            CustomContainers(),
-            SizedBox(
+            const CustomContainers(),
+            const SizedBox(
               height: 40,
             ),
             isAdLoaded
@@ -76,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: AdWidget(ad: bannerAd),
                     ),
                   )
-                : SizedBox(
+                : const SizedBox(
                     child: Center(
                       child: CircularProgressIndicator(),
                     ),
@@ -101,15 +101,15 @@ class CustomSearchBar extends StatelessWidget {
         height: 60,
         width: double.infinity,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20), color: Color(0xffF2F7FF)),
+            borderRadius: BorderRadius.circular(20), color: const Color(0xffF2F7FF)),
         child: TextFormField(
           // focusNode: _focusNode
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
               border: InputBorder.none,
               prefixIconColor: Color.fromARGB(255, 127, 127, 131),
               labelText: 'Search Store',
               labelStyle: TextStyle(color: Color(0xff9694FF)),
-              prefixIcon: const Icon(
+              prefixIcon: Icon(
                 Icons.search,
                 size: 25,
               )),

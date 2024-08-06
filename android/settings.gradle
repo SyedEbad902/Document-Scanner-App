@@ -18,3 +18,6 @@ pluginManagement {
 include ":app"
 
 apply from: "${settings.ext.flutterSdkPath}/packages/flutter_tools/gradle/app_plugin_loader.gradle"
+include ':google_mobile_ads'
+project(':google_mobile_ads').projectDir = new File('C:\\Users\\AB Systems\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\google_mobile_ads-4.0.0\\android')
+

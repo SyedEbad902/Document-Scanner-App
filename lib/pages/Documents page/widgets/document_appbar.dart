@@ -11,7 +11,7 @@ class DocumentAppBar extends StatelessWidget {
       // color: Colors.grey,
       height: 70,
       width: double.infinity,
-      margin: EdgeInsets.only(
+      margin: const EdgeInsets.only(
         top: 20,
       ),
       child: Row(
@@ -21,14 +21,14 @@ class DocumentAppBar extends StatelessWidget {
             onTap: () {
               Navigator.pop(context);
             },
-            child: Icon(
+            child: const Icon(
               Icons.arrow_back,
               size: 28,
             ),
           ),
           GestureDetector(
             onTap: () {},
-            child: Icon(
+            child: const Icon(
               Icons.settings,
               size: 30,
             ),
