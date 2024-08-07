@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../Documents page/documents_screen.dart';
+import '../../Personal Files/personal_file.dart';
 
 class CustomContainers extends StatelessWidget {
   const CustomContainers({
@@ -17,13 +18,16 @@ class CustomContainers extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) =>  FileListPage()));
+                },
                 child: Container(
                   height: 74,
                   width: 142,
                   decoration: BoxDecoration(
-                      border:
-                          Border.all(color: const Color.fromARGB(255, 167, 167, 170)),
+                      border: Border.all(
+                          color: const Color.fromARGB(255, 167, 167, 170)),
                       borderRadius: BorderRadius.circular(10)),
                   child: Center(
                       child: Row(
@@ -75,8 +79,8 @@ class CustomContainers extends StatelessWidget {
                   height: 74,
                   width: 142,
                   decoration: BoxDecoration(
-                      border:
-                          Border.all(color: const Color.fromARGB(255, 167, 167, 170)),
+                      border: Border.all(
+                          color: const Color.fromARGB(255, 167, 167, 170)),
                       borderRadius: BorderRadius.circular(10)),
                   child: Center(
                       child: Row(
@@ -132,8 +136,8 @@ class CustomContainers extends StatelessWidget {
                   height: 74,
                   width: 142,
                   decoration: BoxDecoration(
-                      border:
-                          Border.all(color: const Color.fromARGB(255, 167, 167, 170)),
+                      border: Border.all(
+                          color: const Color.fromARGB(255, 167, 167, 170)),
                       borderRadius: BorderRadius.circular(10)),
                   child: Center(
                       child: Row(
@@ -180,8 +184,8 @@ class CustomContainers extends StatelessWidget {
                   height: 74,
                   width: 142,
                   decoration: BoxDecoration(
-                      border:
-                          Border.all(color: const Color.fromARGB(255, 167, 167, 170)),
+                      border: Border.all(
+                          color: const Color.fromARGB(255, 167, 167, 170)),
                       borderRadius: BorderRadius.circular(10)),
                   child: Center(
                       child: Row(

@@ -16,6 +16,7 @@ def flutterVersionCode = localProperties.getProperty('flutter.versionCode') ?: '
 def flutterVersionName = localProperties.getProperty('flutter.versionName') ?: '1.0'
 
 android {
+    
     namespace "com.example.pdf_scanner"
     compileSdkVersion 34
     ndkVersion flutter.ndkVersion
@@ -26,7 +27,7 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
     }
 
     sourceSets {
