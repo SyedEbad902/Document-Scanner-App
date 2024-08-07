@@ -4,8 +4,10 @@ import '../../Documents page/documents_screen.dart';
 import '../../Personal Files/personal_file.dart';
 
 class CustomContainers extends StatelessWidget {
+  final List getfiles;
   const CustomContainers({
     super.key,
+    required this.getfiles,
   });
 
   @override
@@ -19,8 +21,12 @@ class CustomContainers extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) =>  FileListPage()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => GetFiles(
+                                getFiles: getfiles,
+                              )));
                 },
                 child: Container(
                   height: 74,
@@ -57,9 +63,9 @@ class CustomContainers extends StatelessWidget {
                               )),
                           Container(
                               margin: const EdgeInsets.only(left: 8),
-                              child: const Text(
-                                "120 Files",
-                                style: TextStyle(
+                              child: Text(
+                                "${getfiles.length} Files",
+                                style: const TextStyle(
                                     fontSize: 12, fontWeight: FontWeight.w400),
                               )),
                         ],

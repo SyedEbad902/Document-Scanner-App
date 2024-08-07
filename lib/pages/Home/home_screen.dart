@@ -1,7 +1,13 @@
+// ignore_for_file: avoid_print
+
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import '../Documents page/widgets/search_bar.dart';
 import 'widgets/appbar.dart';
 import 'widgets/custom_container.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -15,6 +21,18 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     initBannerAd();
+    _searchFiles();
+  }
+
+  void showToast(String message) {
+    Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      backgroundColor: Colors.black,
+      textColor: Colors.white,
+      fontSize: 16.0,
+    );
   }
 
   late BannerAd bannerAd;
@@ -31,10 +49,61 @@ class _HomeScreenState extends State<HomeScreen> {
         }, onAdFailedToLoad: ((ad, error) {
           ad.dispose();
           print(error);
+          showToast("Failed to load ad");
         })),
         request: const AdRequest());
     bannerAd.load();
   }
+
+/////////////// getting files from device/////////////////////////////////
+  List<String> files = [];
+  Future<List<String>> _searchFiles() async {
+    // Request storage permissions
+    if (await Permission.storage.request().isGranted) {
+      try {
+        // final directory = await getExternalStorageDirectory();
+        // final directory = Directory('/storage/emulated/0/Download');
+        final directory = Directory(
+            '/storage/emulated/0/Android/media/com.whatsapp/WhatsApp/Media/WhatsApp Documents/');
+        if (directory == null) {
+          return files;
+        }
+
+        // List entities in the directory
+        final entities = directory.listSync(recursive: true);
+        print('Entities in the directory: $entities');
+        for (var entity in entities) {
+          if (entity is File) {
+            String path = entity.path;
+            // print("File found: $path");
+            // files.add(path);
+
+            if (path.endsWith('.doc') ||
+                path.endsWith('.docx') ||
+                path.endsWith('.pdf')) {
+              files.add(path);
+              print("File found: $path");
+            }
+          } else {
+            print("Skipping non-file entity: ${entity.path}");
+          }
+        }
+        setState(() {});
+      } catch (e) {
+        showToast("Error Reading Directory");
+        print('Error reading directory: $e');
+      }
+    } else {
+      showToast('Storage permission denied');
+
+      print('Storage permission denied');
+    }
+
+    print('Files found: $files');
+    return files;
+  }
+
+////////////////////////////////////////////////
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
             ),
-            const CustomContainers(),
+            CustomContainers(getfiles: files),
             const SizedBox(
               height: 40,
             ),
@@ -82,37 +151,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class CustomSearchBar extends StatelessWidget {
-  const CustomSearchBar({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Container(
-        height: 60,
-        width: double.infinity,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20), color: const Color(0xffF2F7FF)),
-        child: TextFormField(
-          // focusNode: _focusNode
-          decoration: const InputDecoration(
-              border: InputBorder.none,
-              prefixIconColor: Color.fromARGB(255, 127, 127, 131),
-              labelText: 'Search Store',
-              labelStyle: TextStyle(color: Color(0xff9694FF)),
-              prefixIcon: Icon(
-                Icons.search,
-                size: 25,
-              )),
         ),
       ),
     );

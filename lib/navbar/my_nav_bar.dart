@@ -20,22 +20,7 @@ class _MyNavBarState extends State<MyNavBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     setState(() {
-      //       currentIndex = 0;
-      //     });
-      //   },
-      //   shape: const CircleBorder(),
-      //   backgroundColor: const Color.fromARGB(255, 255, 156, 7),
-      //   child: const Icon(
-      //     Icons.home,
-      //     size: 30,
-      //     color: Colors.white,
-      //   ),
-      // ),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: Container(
+           bottomNavigationBar: Container(
         height: 70,
         margin: const EdgeInsets.all(20),
         decoration: BoxDecoration(
@@ -69,7 +54,8 @@ class _MyNavBarState extends State<MyNavBar> {
                     icon: Icon(
                       Icons.grid_view_outlined,
                       size: 30,
-                      color: currentIndex == 0 ? Colors.blue : Colors.grey,
+                      color:
+                          currentIndex == 0 ? const Color(0xff9694FF) : Colors.grey,
                     ),
                   ),
                   IconButton(
@@ -81,7 +67,8 @@ class _MyNavBarState extends State<MyNavBar> {
                     icon: Icon(
                       Icons.document_scanner_outlined,
                       size: 30,
-                      color: currentIndex == 1 ? Colors.red : Colors.grey,
+                      color:
+                          currentIndex == 1 ? const Color(0xff9694FF) : Colors.grey,
                     ),
                   ),
                   IconButton(
@@ -93,7 +80,8 @@ class _MyNavBarState extends State<MyNavBar> {
                     icon: Icon(
                       Icons.person_2_outlined,
                       size: 35,
-                      color: currentIndex == 3 ? Colors.blue : Colors.grey,
+                      color:
+                          currentIndex == 2 ? const Color(0xff9694FF) : Colors.grey,
                     ),
                   ),
                 ],

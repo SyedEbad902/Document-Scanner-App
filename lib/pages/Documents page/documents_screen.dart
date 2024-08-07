@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:pdf_scanner/pages/Documents%20page/widgets/search_bar.dart';
 
-import '../Home/home_screen.dart';
 import 'widgets/document_appbar.dart';
+
 
 class DocumentScreen extends StatefulWidget {
   const DocumentScreen({super.key});

@@ -4,6 +4,7 @@ class DocumentAppBar extends StatelessWidget {
   const DocumentAppBar({
     super.key,
   });
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,9 @@ class DocumentAppBar extends StatelessWidget {
             ),
           ),
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              
+            },
             child: const Icon(
               Icons.settings,
               size: 30,
