@@ -43,6 +43,11 @@ dependencies:
   path_provider: ^2.1.4
   fluttertoast: ^8.2.6
   path: ^1.9.0
+  image_picker: ^1.1.2
+  image: ^4.2.0
+  image_cropper: ^8.0.1
+  
+
   
 
 

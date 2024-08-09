@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../pages/Home/home_screen.dart';
+import '../pages/Scanning/image_scan.dart';
 
 class MyNavBar extends StatefulWidget {
   const MyNavBar({super.key});
@@ -13,7 +14,7 @@ class _MyNavBarState extends State<MyNavBar> {
   int currentIndex = 0;
   List screens = [
     const HomeScreen(),
-    const Scaffold(),
+     DocumentScanner(),
     const Scaffold(),
   ];
   @override
