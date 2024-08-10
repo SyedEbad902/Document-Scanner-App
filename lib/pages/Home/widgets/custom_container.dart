@@ -79,7 +79,7 @@ class CustomContainers extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: ((context) => const DocumentScreen())));
+                          builder: (context) => DocumentScreen()));
                 },
                 child: Container(
                   height: 74,

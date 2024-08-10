@@ -45,7 +45,7 @@
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-5790585205224146~3088271417"/>
-        <provider
+        <!-- <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
             android:exported="false"
@@ -53,7 +53,7 @@
         <meta-data
             android:name="android.support.FILE_PROVIDER_PATHS"
             android:resource="@xml/provider_paths"/>
-        </provider>   
+        </provider>    -->
 
     </application>
 </manifest>

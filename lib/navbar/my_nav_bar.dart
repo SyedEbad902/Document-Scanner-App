@@ -14,7 +14,7 @@ class _MyNavBarState extends State<MyNavBar> {
   int currentIndex = 0;
   List screens = [
     const HomeScreen(),
-     DocumentScanner(),
+     CustomPage(),
     const Scaffold(),
   ];
   @override
