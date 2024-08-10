@@ -1,10 +1,14 @@
 // import 'dart:io';
 import 'dart:io';
+import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_document_scanner/flutter_document_scanner.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:pdf_scanner/navbar/my_nav_bar.dart';
 
 // import '../Documents page/documents_screen.dart';
 
@@ -18,6 +22,17 @@ class CustomPage extends StatefulWidget {
 class _CustomPageState extends State<CustomPage> {
   final _controller = DocumentScannerController();
 
+  void showToast(String message) {
+    Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      backgroundColor: Colors.black,
+      textColor: Colors.white,
+      fontSize: 16.0,
+    );
+  }
+
   @override
   void dispose() {
     _controller.dispose();
@@ -25,164 +40,170 @@ class _CustomPageState extends State<CustomPage> {
   }
 
   String? _imagePath;
+  randomNum() {
+    var random = Random();
+    var diceface = random.nextInt(1000000000);
+    return diceface;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: DocumentScanner(
-        controller: _controller,
-        generalStyles: const GeneralStyles(
-          hideDefaultBottomNavigation: true,
-          messageTakingPicture: 'Taking picture of document',
-          messageCroppingPicture: 'Cropping picture of document',
-          messageEditingPicture: 'Editing picture of document',
-          messageSavingPicture: 'Saving picture of document',
-          baseColor: Colors.teal,
-        ),
-        takePhotoDocumentStyle: TakePhotoDocumentStyle(
-          top: MediaQuery.of(context).padding.top + 25,
-          hideDefaultButtonTakePicture: true,
-          onLoading: const CircularProgressIndicator(
-            color: Colors.white,
+          controller: _controller,
+          generalStyles: const GeneralStyles(
+            hideDefaultBottomNavigation: true,
+            messageTakingPicture: 'Taking picture of document',
+            messageCroppingPicture: 'Cropping picture of document',
+            messageEditingPicture: 'Editing picture of document',
+            messageSavingPicture: 'Saving picture of document',
+            baseColor: Colors.teal,
           ),
-          children: [
-            // * AppBar
-            Positioned(
-              top: 0,
-              left: 0,
-              right: 0,
-              child: Container(
-                color: Colors.teal,
-                padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).padding.top + 10,
-                  bottom: 15,
-                ),
-                child: const Center(
-                  child: Text(
-                    'Take a picture of the document',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
+          takePhotoDocumentStyle: TakePhotoDocumentStyle(
+            top: MediaQuery.of(context).padding.top + 25,
+            hideDefaultButtonTakePicture: true,
+            onLoading: const CircularProgressIndicator(
+              color: Colors.white,
+            ),
+            children: [
+              // * AppBar
+              Positioned(
+                top: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  color: Colors.teal,
+                  padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).padding.top + 10,
+                    bottom: 15,
+                  ),
+                  child: const Center(
+                    child: Text(
+                      'Take a picture of the document',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
 
-            // * Button to take picture
-            Positioned(
-              bottom: MediaQuery.of(context).padding.bottom + 10,
-              left: 0,
-              right: 0,
-              child: Center(
-                child: ElevatedButton(
-                  onPressed: _controller.takePhoto,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.teal,
-                  ),
-                  child: const Text(
-                    'Take picture',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
+              // * Button to take picture
+              Positioned(
+                bottom: MediaQuery.of(context).padding.bottom + 10,
+                left: 0,
+                right: 0,
+                child: Center(
+                  child: ElevatedButton(
+                    onPressed: _controller.takePhoto,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.teal,
+                    ),
+                    child: const Text(
+                      'Take picture',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
-        ),
-        cropPhotoDocumentStyle: CropPhotoDocumentStyle(
-          top: MediaQuery.of(context).padding.top,
-          maskColor: Colors.teal.withOpacity(0.2),
-        ),
-        editPhotoDocumentStyle: EditPhotoDocumentStyle(
-          top: MediaQuery.of(context).padding.top,
-        ),
-        resolutionCamera: ResolutionPreset.ultraHigh,
-        pageTransitionBuilder: (child, animation) {
-          final tween = Tween<double>(begin: 0, end: 1);
+            ],
+          ),
+          cropPhotoDocumentStyle: CropPhotoDocumentStyle(
+            top: MediaQuery.of(context).padding.top,
+            maskColor: Colors.teal.withOpacity(0.2),
+          ),
+          editPhotoDocumentStyle: EditPhotoDocumentStyle(
+            top: MediaQuery.of(context).padding.top,
+          ),
+          resolutionCamera: ResolutionPreset.ultraHigh,
+          pageTransitionBuilder: (child, animation) {
+            final tween = Tween<double>(begin: 0, end: 1);
 
-          final curvedAnimation = CurvedAnimation(
-            parent: animation,
-            curve: Curves.easeOutCubic,
-          );
+            final curvedAnimation = CurvedAnimation(
+              parent: animation,
+              curve: Curves.easeOutCubic,
+            );
 
-          return ScaleTransition(
-            scale: tween.animate(curvedAnimation),
-            child: child,
-          );
-        },
-        onSave: (Uint8List imageBytes) async {
-          final directory = await getApplicationDocumentsDirectory();
-          final imagePath = '${directory.path}/filtered_image2.png';
-          File imageFile = File(imagePath);
-          print(imageFile);
-          await imageFile.writeAsBytes(imageBytes);
-          setState(() {
-            _imagePath = imagePath;
-          });
-          if (_imagePath != null) {
-            print("saved");
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (context) => DocumentScreen(imagePath: imagePath),
-            //   ),
-            // );
+            return ScaleTransition(
+              scale: tween.animate(curvedAnimation),
+              child: child,
+            );
+          },
+          onSave: (Uint8List imageBytes) async {
+            final directory = await getApplicationDocumentsDirectory();
+            final pdfPath = '${directory.path}/New_file_${randomNum()}.pdf';
+
+            // Create a PDF document
+            final pdf = pw.Document();
+
+            // Add the image to the PDF document
+            final image = pw.MemoryImage(imageBytes);
+            pdf.addPage(
+              pw.Page(
+                build: (pw.Context context) {
+                  return pw.Center(
+                    child: pw.Image(image),
+                  );
+                },
+              ),
+            );
+
+            // Save the PDF file
+            final pdfFile = File(pdfPath);
+            await pdfFile.writeAsBytes(await pdf.save());
+
+            setState(() {
+              _imagePath = pdfPath;
+            });
+
+            if (_imagePath != null) {
+              showToast("Document Saved");
+              Navigator.push(
+                // ignore: use_build_context_synchronously
+                context,
+                MaterialPageRoute(builder: (context) => const MyNavBar()),
+              );
+              // ignore: avoid_print
+              print("PDF saved at: $_imagePath");
+            }
+
+            // final File? photoTaken = _controller.pictureTaken;
+            // ignore: avoid_print
+
+            // final Uint8List? photoCropped = _controller.pictureCropped;
           }
-          final File? photoTaken = _controller.pictureTaken;
-          print(" taken photo${photoTaken}");
 
-          final Uint8List? photoCropped = _controller.pictureCropped;
-          print(" croped photo${photoCropped}");
-        },
+// String randomNum() {
+//   return DateTime.now().millisecondsSinceEpoch.toString();
+// }
 
-        // onSave: (Uint8List imageBytes) async {
-        //   final directoryPath =
-        //       '/data/user/0/com.example.pdf_scanner/app_flutter/User_images';
-        //   final filePath =
-        //       '$directoryPath/filtered_image.png'; // Specify the file name
+          // onSave: (Uint8List imageBytes) async {
+          //   final directory = await getApplicationDocumentsDirectory();
+          //   final imagePath =
+          //       '${directory.path}/filtered_image${randomNum()}.pdf';
+          //   File imageFile = File(imagePath);
+          //   print(imageFile);
+          //   await imageFile.writeAsBytes(imageBytes);
+          //   setState(() {
+          //     _imagePath = imagePath;
+          //   });
+          //   if (_imagePath != null) {
+          //     showToast("Document Saved");
+          //     Navigator.push(
+          //         context, MaterialPageRoute(builder: (context) => HomeScreen()));
+          //     print("saved");
+          //   }
+          //   final File? photoTaken = _controller.pictureTaken;
+          //   print(" taken photo${photoTaken}");
 
-        //   // Ensure the directory exists
-        //   final directory = Directory(directoryPath);
-        //   if (!await directory.exists()) {
-        //     await directory.create(recursive: true);
-        //   }
-
-        //   // Check if the file already exists and is not a directory
-        //   final file = File(filePath);
-        //   if (await file.exists()) {
-        //     if (await FileSystemEntity.isDirectory(filePath)) {
-        //       // If it's a directory, delete it
-        //       await Directory(filePath).delete(recursive: true);
-        //     }
-        //   }
-
-        //   // Now save the image to the file
-        //   await file.writeAsBytes(imageBytes);
-
-        //   print('Directory path: $directoryPath');
-        //   print('File path: $filePath');
-        //   print('Is Directory: ${await Directory(filePath).exists()}');
-        //   print('Is File: ${await file.exists()}');
-        //   dispose();
-
-        //   // Save the image bytes to the file
-        //   // File imageFile = File(filePath);
-        //   // await imageFile.writeAsBytes(imageBytes);
-        //   // print("this is image path${filePath}");
-        //   // final File? photoTaken = _controller.pictureTaken;
-        //   // print(photoTaken);
-
-        //   // final Uint8List? photoCropped = _controller.pictureCropped;
-        //   // print("////////////////////////////////////////////////////");
-        //   // print(photoCropped);
-        //   // print("end");
-
-        //   // return imagePath; // Return the path where the image was saved
-        // },
-      ),
+          //   final Uint8List? photoCropped = _controller.pictureCropped;
+          //   print(" croped photo${photoCropped}");
+          // },
+          ),
     );
   }
 }

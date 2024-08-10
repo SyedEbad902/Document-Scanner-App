@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 import '../../Documents page/documents_screen.dart';
@@ -5,9 +6,12 @@ import '../../Personal Files/personal_file.dart';
 
 class CustomContainers extends StatelessWidget {
   final List getfiles;
-  const CustomContainers({
+  final List getpdfFile;
+  // final   Uint8List? previewImage;
+
+  const CustomContainers( {
     super.key,
-    required this.getfiles,
+    required this.getfiles, required this.getpdfFile,
   });
 
   @override
@@ -79,7 +83,7 @@ class CustomContainers extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => DocumentScreen()));
+                          builder: (context) => const DocumentScreen()));
                 },
                 child: Container(
                   height: 74,
@@ -117,9 +121,9 @@ class CustomContainers extends StatelessWidget {
                               )),
                           Container(
                               margin: const EdgeInsets.only(left: 8),
-                              child: const Text(
-                                "15 Files",
-                                style: TextStyle(
+                              child:  Text(
+                                "${getpdfFile.length}Files",
+                                style: const TextStyle(
                                     fontSize: 12, fontWeight: FontWeight.w400),
                               )),
                         ],

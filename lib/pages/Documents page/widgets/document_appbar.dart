@@ -27,9 +27,10 @@ class DocumentAppBar extends StatelessWidget {
   }
 
   void checkFilesCount() async {
-    final directoryPath = '/data/user/0/com.example.pdf_scanner/app_flutter';
+    const directoryPath = '/data/user/0/com.example.pdf_scanner/app_flutter';
     int fileCount = await countFilesInDirectory(directoryPath);
 
+    // ignore: avoid_print
     print('Number of files in the directory: $fileCount');
   }
 

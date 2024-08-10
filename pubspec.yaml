@@ -47,6 +47,8 @@ dependencies:
   image: ^4.2.0
   image_cropper: ^8.0.1
   flutter_document_scanner: ^1.1.2
+  pdf: ^3.11.1
+  pdfx: ^2.6.0
   
 
   

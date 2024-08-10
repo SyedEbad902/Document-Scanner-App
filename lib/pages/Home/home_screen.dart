@@ -1,8 +1,10 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, unnecessary_null_comparison
 
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:pdfx/pdfx.dart';
 import '../Documents page/widgets/search_bar.dart';
 import 'widgets/appbar.dart';
 import 'widgets/custom_container.dart';
@@ -21,8 +23,55 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     initBannerAd();
+    _loadFiles();
     _searchFiles();
   }
+
+////////////////////////get pdf docs///////////////////////////
+  Uint8List? previewImage;
+
+  // List<File> _files = [];
+  List<Map<String, dynamic>> pdfPreviews = [];
+  Future<void> _loadFiles() async {
+    const directoryPath = "/data/user/0/com.example.pdf_scanner/app_flutter";
+    final directory = Directory(directoryPath);
+
+    if (await directory.exists()) {
+      final List<FileSystemEntity> entities = await directory.list().toList();
+      final List<File> files = entities.whereType<File>().toList();
+
+      for (File file in files) {
+        final previewImage = await _renderFirstPage(file.path);
+        if (previewImage != null) {
+          setState(() {
+            pdfPreviews.add({
+              'path': file.path,
+              'preview': previewImage,
+            });
+          });
+        }
+      }
+    }
+  }
+
+  Future<Widget?> _renderFirstPage(String pdfPath) async {
+    try {
+      final document = await PdfDocument.openFile(pdfPath);
+      final page = await document.getPage(1);
+
+      final pageImage = await page.render(
+        width: page.width,
+        height: page.height,
+      );
+      await page.close();
+
+      return Image.memory(pageImage!.bytes);
+    } catch (e) {
+      print('Error rendering PDF page: $e');
+      return null;
+    }
+  }
+////////////////////////////////////////////////////////////////
 
   void showToast(String message) {
     Fluttertoast.showToast(
@@ -133,7 +182,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
             ),
-            CustomContainers(getfiles: files),
+            CustomContainers(getfiles: files, getpdfFile: pdfPreviews,),
             const SizedBox(
               height: 40,
             ),

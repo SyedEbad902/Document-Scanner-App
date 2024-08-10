@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget {
@@ -18,7 +19,11 @@ class CustomAppBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              // num num1 = 0.2;
+             
+              // print(_diceface);
+            },
             child: const Icon(
               Icons.menu,
               size: 28,
