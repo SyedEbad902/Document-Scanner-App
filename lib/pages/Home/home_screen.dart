@@ -1,15 +1,19 @@
 // ignore_for_file: avoid_print, unnecessary_null_comparison
 
+import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:path/path.dart' as p;
 import 'package:pdfx/pdfx.dart';
+import 'package:permission_handler/permission_handler.dart';
+
 import '../Documents page/widgets/search_bar.dart';
 import 'widgets/appbar.dart';
 import 'widgets/custom_container.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -25,6 +29,9 @@ class _HomeScreenState extends State<HomeScreen> {
     initBannerAd();
     _loadFiles();
     _searchFiles();
+    Timer(const Duration(seconds: 3), () {
+      filesCheck();
+    });
   }
 
 ////////////////////////get pdf docs///////////////////////////
@@ -106,6 +113,28 @@ class _HomeScreenState extends State<HomeScreen> {
 
 /////////////// getting files from device/////////////////////////////////
   List<String> files = [];
+  List<String> pdfFiles = [];
+  List<String> docFiles = [];
+  filesCheck() async {
+    //  String extension = p.extension(files).toLowerCase();
+    if (files != null) {
+      for (var i = 0; i < files.length; i++) {
+        String extension = await p.extension(files[i]).toLowerCase();
+        if (extension == ".pdf") {
+          pdfFiles.add(files[i]);
+        } else {
+          docFiles.add(files[i]);
+        }
+      }
+    } else {
+      print("Error");
+    }
+    // print("doc file $docFiles");
+    // print("pdf file $pdfFiles");
+    // print("Length od doc ${docFiles.length}");
+    // print("Length of pdf ${pdfFiles.length}");
+  }
+
   Future<List<String>> _searchFiles() async {
     // Request storage permissions
     if (await Permission.storage.request().isGranted) {
@@ -164,12 +193,17 @@ class _HomeScreenState extends State<HomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const CustomAppBar(),
-            const Text(
-              "Dashboard Files",
-              style: TextStyle(
-                  fontSize: 24,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold),
+            GestureDetector(
+              onTap: () {
+                filesCheck();
+              },
+              child: const Text(
+                "Dashboard Files",
+                style: TextStyle(
+                    fontSize: 24,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold),
+              ),
             ),
             const SizedBox(
               height: 10,
@@ -182,7 +216,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
             ),
-            CustomContainers(getfiles: files, getpdfFile: pdfPreviews,),
+            CustomContainers(
+              getfiles: files,
+              getpdfFile: pdfPreviews, pdfFiles: pdfFiles, docFiles: docFiles,
+            ),
             const SizedBox(
               height: 40,
             ),
