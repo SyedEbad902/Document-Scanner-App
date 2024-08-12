@@ -15,7 +15,9 @@ class CustomContainers extends StatelessWidget {
   const CustomContainers({
     super.key,
     required this.getfiles,
-    required this.getpdfFile, required this.pdfFiles, required this.docFiles,
+    required this.getpdfFile,
+    required this.pdfFiles,
+    required this.docFiles,
   });
 
   @override
@@ -84,8 +86,12 @@ class CustomContainers extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => PdfFiles(pdfFiles: pdfFiles,)));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => PdfFiles(
+                                pdfFiles: pdfFiles,
+                              )));
                 },
                 child: Container(
                   height: 74,
@@ -123,7 +129,7 @@ class CustomContainers extends StatelessWidget {
                               )),
                           Container(
                               margin: const EdgeInsets.only(left: 8),
-                              child:  Text(
+                              child: Text(
                                 "${pdfFiles.length} Files",
                                 style: const TextStyle(
                                     fontSize: 12, fontWeight: FontWeight.w400),
@@ -144,8 +150,12 @@ class CustomContainers extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => DocxFiles(docFiles: docFiles,)));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => DocxFiles(
+                                docFiles: docFiles,
+                              )));
                 },
                 child: Container(
                   height: 74,
@@ -216,7 +226,7 @@ class CustomContainers extends StatelessWidget {
                           width: 32,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
-                            color: const Color(0xffFF7976),
+                            color: const Color(0xff57CAEB),
                           ),
                           child: const Icon(
                             Icons.folder,

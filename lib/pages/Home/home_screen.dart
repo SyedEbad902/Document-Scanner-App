@@ -1,5 +1,4 @@
 // ignore_for_file: avoid_print, unnecessary_null_comparison
-
 import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
@@ -29,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
     initBannerAd();
     _loadFiles();
     _searchFiles();
-    Timer(const Duration(seconds: 3), () {
+    Timer(const Duration(milliseconds: 500), () {
       filesCheck();
     });
   }
@@ -40,7 +39,9 @@ class _HomeScreenState extends State<HomeScreen> {
   // List<File> _files = [];
   List<Map<String, dynamic>> pdfPreviews = [];
   Future<void> _loadFiles() async {
-    const directoryPath = "/data/user/0/com.example.pdf_scanner/app_flutter";
+    // const directoryPath = "/data/user/0/com.example.pdf_scanner/app_flutter";
+    const directoryPath =
+        "/data/user/0/com.example.pdf_scanner/cache/mlkit_docscan_ui_client";
     final directory = Directory(directoryPath);
 
     if (await directory.exists()) {
@@ -50,14 +51,15 @@ class _HomeScreenState extends State<HomeScreen> {
       for (File file in files) {
         final previewImage = await _renderFirstPage(file.path);
         if (previewImage != null) {
-          setState(() {
-            pdfPreviews.add({
-              'path': file.path,
-              'preview': previewImage,
-            });
+          // setState(() {
+          pdfPreviews.add({
+            'path': file.path,
+            'preview': previewImage,
           });
+          // });
         }
       }
+      setState(() {});
     }
   }
 
@@ -126,13 +128,11 @@ class _HomeScreenState extends State<HomeScreen> {
           docFiles.add(files[i]);
         }
       }
+      setState(() {});
     } else {
       print("Error");
     }
-    // print("doc file $docFiles");
-    // print("pdf file $pdfFiles");
-    // print("Length od doc ${docFiles.length}");
-    // print("Length of pdf ${pdfFiles.length}");
+    ;
   }
 
   Future<List<String>> _searchFiles() async {
@@ -218,7 +218,9 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             CustomContainers(
               getfiles: files,
-              getpdfFile: pdfPreviews, pdfFiles: pdfFiles, docFiles: docFiles,
+              getpdfFile: pdfPreviews,
+              pdfFiles: pdfFiles,
+              docFiles: docFiles,
             ),
             const SizedBox(
               height: 40,
@@ -233,7 +235,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   )
                 : const SizedBox(
                     child: Center(
-                      child: CircularProgressIndicator(),
+                      child: CircularProgressIndicator(
+                        color: Color(0xff9694FF),
+                      ),
                     ),
                   ),
           ],

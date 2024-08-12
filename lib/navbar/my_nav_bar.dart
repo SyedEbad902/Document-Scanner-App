@@ -14,9 +14,8 @@ class _MyNavBarState extends State<MyNavBar> {
   int currentIndex = 0;
   List screens = [
     const HomeScreen(),
-     const CustomPage(),
-    const Scaffold(),
-  ];
+     const DocScanner(),
+Scaffold()  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
