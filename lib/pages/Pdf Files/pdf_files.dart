@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:open_file/open_file.dart';
+import 'package:pdf_scanner/pages/pdf%20View/pdf_viewer.dart';
 
 class PdfFiles extends StatefulWidget {
   final List pdfFiles;
@@ -10,16 +11,23 @@ class PdfFiles extends StatefulWidget {
 }
 
 class _PdfFilesState extends State<PdfFiles> {
-   void _openFile(String path) {
+  void _openFile(String path) {
     OpenFile.open(path);
   }
+
   @override
   Widget build(BuildContext context) {
-    return  widget.pdfFiles.isNotEmpty
+    return widget.pdfFiles.isNotEmpty
         ? Scaffold(
             appBar: AppBar(
-              title: const Text('Pdf Files'),
-              backgroundColor: const Color(0xff9694FF),
+              title: const Text(
+                'Pdf Files',
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              ),
+              backgroundColor: Colors.red,
               centerTitle: true,
             ),
             body: Padding(
@@ -33,7 +41,7 @@ class _PdfFilesState extends State<PdfFiles> {
 
                   // print(path.endsWith('.docx'));
                   return GestureDetector(
-                    onTap: () => _openFile(path),
+                    onTap: () => Navigator.push(context,MaterialPageRoute(builder: (context)=>PdfViewer(filepath: path) )),
                     child: Container(
                       margin: const EdgeInsets.only(top: 5),
                       padding: const EdgeInsets.only(top: 8),
@@ -46,23 +54,19 @@ class _PdfFilesState extends State<PdfFiles> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),
                         leading: Container(
-                          // padding: EdgeInsets.only(top: 20),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              border:
-                                  Border.all(color: const Color(0xff9694FF))),
-                          height: 40,
-                          width: 45,
-                          child: Center(
-                            child: const Text(
-                              ".pdf" ,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xff9694FF),
-                                  fontSize: 13),
-                            ),
-                          ),
-                        ),
+                            // padding: EdgeInsets.only(top: 20),
+                            // decoration: BoxDecoration(
+                            //     color: Colors.redAccent,
+                            //     borderRadius: BorderRadius.circular(10),
+                            //     border: Border.all(color: Colors.red)),
+
+                            child: Image.asset(
+                          "assets/images/pdf1.png",
+                          fit: BoxFit.contain,
+                          height: 50,
+                          width: 50,
+                          // color: Colors.transparent,
+                        )),
                         title: Text(
                           path.split('/').last,
                           style: const TextStyle(
@@ -84,9 +88,5 @@ class _PdfFilesState extends State<PdfFiles> {
               child: CircularProgressIndicator(),
             ),
           );
-    
   }
 }
-
-
-

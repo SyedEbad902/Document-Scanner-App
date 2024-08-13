@@ -20,8 +20,14 @@ class _DocxFilesState extends State<DocxFiles> {
     return widget.docFiles.isNotEmpty
         ? Scaffold(
             appBar: AppBar(
-              title: const Text('Word Files'),
-              backgroundColor: const Color(0xff9694FF),
+              title: const Text(
+                'Word Files',
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              ),
+              backgroundColor: const Color(0xff0771b4),
               centerTitle: true,
             ),
             body: Padding(
@@ -49,20 +55,12 @@ class _DocxFilesState extends State<DocxFiles> {
                             borderRadius: BorderRadius.circular(20)),
                         leading: Container(
                           // padding: EdgeInsets.only(top: 20),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              border:
-                                  Border.all(color: const Color(0xff9694FF))),
-                          height: 40,
-                          width: 45,
-                          child: Center(
-                            child: const Text(
-                              ".docx",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xff9694FF),
-                                  fontSize: 13),
-                            ),
+
+                          child: Image.asset(
+                            "assets/images/docx.png",
+                            height: 50,
+                            width: 50,
+                            fit: BoxFit.cover,
                           ),
                         ),
                         title: Text(

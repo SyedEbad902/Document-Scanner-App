@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:open_file/open_file.dart';
+// import 'package:open_file/open_file.dart';
 import 'package:path/path.dart' as p;
+import 'package:pdfx/pdfx.dart';
+
+import '../pdf View/pdf_viewer.dart';
+import 'widgets/search_bar.dart';
 
 class GetFiles extends StatefulWidget {
   final List getFiles;
@@ -12,69 +16,94 @@ class GetFiles extends StatefulWidget {
 }
 
 class _GetFilesState extends State<GetFiles> {
-  void _openFile(String path) {
-    OpenFile.open(path);
-  }
+  // void _openFile(String path) {
+  //   OpenFile.open(path);
+  // }
 
   @override
   Widget build(BuildContext context) {
     return widget.getFiles.isNotEmpty
         ? Scaffold(
+            backgroundColor: Colors.white,
             appBar: AppBar(
-              title: const Text('Document Files'),
+              title: const Text('Personal Files'),
               backgroundColor: const Color(0xff9694FF),
               centerTitle: true,
             ),
             body: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ListView.builder(
-                itemCount: widget.getFiles.length,
-                itemBuilder: (context, index) {
-                  final path = widget.getFiles[index];
-                  String extension =
-                      p.extension(widget.getFiles[index]).toLowerCase();
-
-                  // print(path.endsWith('.docx'));
-                  return GestureDetector(
-                    onTap: () => _openFile(path),
-                    child: Container(
-                      margin: const EdgeInsets.only(top: 5),
-                      padding: const EdgeInsets.only(top: 8),
-                      height: 73,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all()),
-                      child: ListTile(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20)),
-                        leading: Container(
-                          // padding: EdgeInsets.only(top: 20),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              border:
-                                  Border.all(color: const Color(0xff9694FF))),
-                          height: 40,
-                          width: 45,
-                          child: Center(
-                            child: Text(
-                              extension == ".pdf" ? ".pdf" : ".docx",
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xff9694FF),
-                                  fontSize: 13),
-                            ),
-                          ),
-                        ),
-                        title: Text(
-                          path.split('/').last,
-                          style: const TextStyle(
-                              fontSize: 12, fontWeight: FontWeight.bold),
-                        ),
+              padding: const EdgeInsets.all(10.0),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CustomSearchBar(),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: Text(
+                        "Your Files",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 18),
                       ),
                     ),
-                  );
-                },
+                    SizedBox(
+                      height: 10,
+                    ),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: widget.getFiles.length,
+                      itemBuilder: (context, index) {
+                        final path = widget.getFiles[index];
+                        String extension =
+                            p.extension(widget.getFiles[index]).toLowerCase();
+
+                        // print(path.endsWith('.docx'));
+                        return GestureDetector(
+                          onTap: () => Navigator.push(context,MaterialPageRoute(builder: (context)=> PdfViewer(filepath: path,))),
+                          child: Container(
+                            margin: const EdgeInsets.only(top: 5),
+                            padding: const EdgeInsets.only(top: 8),
+                            height: 73,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all()),
+                            child: ListTile(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20)),
+                              leading: Container(
+                                // padding: EdgeInsets.only(top: 20),
+                             
+                                child: extension == ".pdf"
+                                    ? Image.asset(
+                                        "assets/images/pdf1.png",
+                                        fit: BoxFit.contain,
+                                        height: 50,
+                                        width: 50,
+                                        // color: Colors.transparent,
+                                      )
+                                    : Image.asset(
+                                        "assets/images/docx.png",
+                                        height: 50,
+                                        width: 50,
+                                        fit: BoxFit.cover,
+                                      ),
+                              ),
+                              title: Text(
+                                path.split('/').last,
+                                style: const TextStyle(
+                                    fontSize: 12, fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           )
@@ -87,7 +116,6 @@ class _GetFilesState extends State<GetFiles> {
               child: CircularProgressIndicator(),
             ),
           );
-    
   }
 }
 

@@ -10,7 +10,6 @@ import 'package:path/path.dart' as p;
 import 'package:pdfx/pdfx.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import '../Documents page/widgets/search_bar.dart';
 import 'widgets/appbar.dart';
 import 'widgets/custom_container.dart';
 
@@ -189,58 +188,55 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(10.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const CustomAppBar(),
-            GestureDetector(
-              onTap: () {
-                filesCheck();
-              },
-              child: const Text(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const CustomAppBar(),
+              const Text(
                 "Dashboard Files",
                 style: TextStyle(
                     fontSize: 24,
                     color: Colors.black,
                     fontWeight: FontWeight.bold),
               ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            const CustomSearchBar(),
-            const Padding(
-              padding: EdgeInsets.all(10.0),
-              child: Text(
-                "Recently",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              const SizedBox(
+                height: 10,
               ),
-            ),
-            CustomContainers(
-              getfiles: files,
-              getpdfFile: pdfPreviews,
-              pdfFiles: pdfFiles,
-              docFiles: docFiles,
-            ),
-            const SizedBox(
-              height: 40,
-            ),
-            isAdLoaded
-                ? Center(
-                    child: SizedBox(
-                      height: bannerAd.size.height.toDouble(),
-                      width: bannerAd.size.width.toDouble(),
-                      child: AdWidget(ad: bannerAd),
-                    ),
-                  )
-                : const SizedBox(
-                    child: Center(
-                      child: CircularProgressIndicator(
-                        color: Color(0xff9694FF),
+              // const CustomSearchBar(),
+              const Padding(
+                padding: EdgeInsets.all(10.0),
+                child: Text(
+                  "Recently",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+              ),
+              CustomContainers(
+                getfiles: files,
+                getpdfFile: pdfPreviews,
+                pdfFiles: pdfFiles,
+                docFiles: docFiles,
+              ),
+              const SizedBox(
+                height: 40,
+              ),
+              isAdLoaded
+                  ? Center(
+                      child: SizedBox(
+                        height: bannerAd.size.height.toDouble(),
+                        width: bannerAd.size.width.toDouble(),
+                        child: AdWidget(ad: bannerAd),
+                      ),
+                    )
+                  : const SizedBox(
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          color: Color(0xff9694FF),
+                        ),
                       ),
                     ),
-                  ),
-          ],
+            ],
+          ),
         ),
       ),
     );

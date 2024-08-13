@@ -6,6 +6,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pdf_scanner/pages/Documents%20page/widgets/search_bar.dart';
+import 'package:pdf_scanner/pages/pdf%20View/pdf_viewer.dart';
 import 'package:pdfx/pdfx.dart';
 
 import 'widgets/document_appbar.dart';
@@ -79,16 +80,16 @@ class _DocumentScreenState extends State<DocumentScreen> {
       for (File file in files) {
         final previewImage = await _renderFirstPage(file.path);
         if (previewImage != null) {
-          // setState(() {
-          _pdfPreviews.add({
-            'path': file.path,
-            'preview': previewImage,
-            // 'count': ,
+          setState(() {
+            _pdfPreviews.add({
+              'path': file.path,
+              'preview': previewImage,
+              // 'count': ,
+            });
           });
-          // });
         }
       }
-      setState(() {});
+      // setState(() {});
       // print(_pdfPreviews);
     }
   }
@@ -166,9 +167,16 @@ class _DocumentScreenState extends State<DocumentScreen> {
                         itemCount: _pdfPreviews.length,
                         itemBuilder: (context, index) {
                           final pdf = _pdfPreviews[index];
+                          print("this is pdf $pdf");
 
                           return GestureDetector(
-                            onLongPress: () {},
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          PdfViewer(filepath: pdf["path"])));
+                            },
                             child: Container(
                               margin: const EdgeInsets.only(top: 5),
                               padding: const EdgeInsets.only(top: 5),

@@ -20,7 +20,7 @@ class CustomSearchBar extends StatelessWidget {
           decoration: const InputDecoration(
               border: InputBorder.none,
               prefixIconColor: Color.fromARGB(255, 127, 127, 131),
-              labelText: 'Search Store',
+              labelText: 'Search File',
               labelStyle: TextStyle(color: Color(0xff9694FF)),
               prefixIcon: Icon(
                 Icons.search,
