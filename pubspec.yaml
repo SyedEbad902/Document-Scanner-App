@@ -50,6 +50,7 @@ dependencies:
   pdf: ^3.11.1
   pdfx: ^2.6.0
   flutter_doc_scanner: ^0.0.8
+  provider: ^6.1.2
   
 
   

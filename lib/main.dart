@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:pdf_scanner/provider/home_screen_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:provider/provider.dart';
+
 import 'pages/splash_screen.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
- await MobileAds.instance.initialize();
+  await MobileAds.instance.initialize();
   await requestPermissions().then((_) {
     runApp(const MyApp());
   });
@@ -17,12 +20,15 @@ Future<void> requestPermissions() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  
+
   @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
-    );
-  }
+  Widget build(BuildContext context) => MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => HomeProvider()),
+        ],
+        child: const MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: SplashScreen(),
+        ),
+      );
 }

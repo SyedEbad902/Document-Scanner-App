@@ -6,9 +6,9 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:path/path.dart' as p;
+import 'package:pdf_scanner/provider/home_screen_provider.dart';
 import 'package:pdfx/pdfx.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:provider/provider.dart';
 
 import 'widgets/appbar.dart';
 import 'widgets/custom_container.dart';
@@ -21,14 +21,27 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+
+  bool dataLoaded = false;
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPersistentFrameCallback((_) {
+      if (!dataLoaded) {
+        Provider.of<HomeProvider>(context, listen: false).searchFiles();
+        Timer(const Duration(milliseconds: 500), () {
+          Provider.of<HomeProvider>(context, listen: false).filesCheck();
+        });
+        dataLoaded = true;
+      }
+    });
+
     initBannerAd();
     _loadFiles();
-    _searchFiles();
+    // _searchFiles();
     Timer(const Duration(milliseconds: 500), () {
-      filesCheck();
+      // filesCheck();
     });
   }
 
@@ -113,76 +126,30 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
 /////////////// getting files from device/////////////////////////////////
-  List<String> files = [];
-  List<String> pdfFiles = [];
-  List<String> docFiles = [];
-  filesCheck() async {
-    //  String extension = p.extension(files).toLowerCase();
-    if (files != null) {
-      for (var i = 0; i < files.length; i++) {
-        String extension = p.extension(files[i]).toLowerCase();
-        if (extension == ".pdf") {
-          pdfFiles.add(files[i]);
-        } else {
-          docFiles.add(files[i]);
-        }
-      }
-      setState(() {});
-    } else {
-      print("Error");
-    }
-  }
-
-  Future<List<String>> _searchFiles() async {
-    // Request storage permissions
-    if (await Permission.storage.request().isGranted) {
-      try {
-        // final directory = await getExternalStorageDirectory();
-        // final directory = Directory('/storage/emulated/0/Download');
-        final directory = Directory(
-            '/storage/emulated/0/Android/media/com.whatsapp/WhatsApp/Media/WhatsApp Documents/');
-        if (directory == null) {
-          return files;
-        }
-
-        // List entities in the directory
-        final entities = directory.listSync(recursive: true);
-        print('Entities in the directory: $entities');
-        for (var entity in entities) {
-          if (entity is File) {
-            String path = entity.path;
-            // print("File found: $path");
-            // files.add(path);
-
-            if (path.endsWith('.doc') ||
-                path.endsWith('.docx') ||
-                path.endsWith('.pdf')) {
-              files.add(path);
-              print("File found: $path");
-            }
-          } else {
-            print("Skipping non-file entity: ${entity.path}");
-          }
-        }
-        setState(() {});
-      } catch (e) {
-        showToast("Error Reading Directory");
-        print('Error reading directory: $e');
-      }
-    } else {
-      showToast('Storage permission denied');
-
-      print('Storage permission denied');
-    }
-
-    print('Files found: $files');
-    return files;
-  }
+  // List<String> pdfFiles = [];
+  // List<String> docFiles = [];
+  // filesCheck() async {
+  //   //  String extension = p.extension(files).toLowerCase();
+  //   if (files != null) {
+  //     for (var i = 0; i < files.length; i++) {
+  //       String extension = p.extension(files[i]).toLowerCase();
+  //       if (extension == ".pdf") {
+  //         pdfFiles.add(files[i]);
+  //       } else {
+  //         docFiles.add(files[i]);
+  //       }
+  //     }
+  //     setState(() {});
+  //   } else {
+  //     print("Error");
+  //   }
+  // }
 
 ////////////////////////////////////////////////
 
   @override
   Widget build(BuildContext context) {
+    final provider = HomeProvider.of(context);
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
@@ -211,10 +178,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               CustomContainers(
-                getfiles: files,
+                getfiles: provider.files,
                 getpdfFile: pdfPreviews,
-                pdfFiles: pdfFiles,
-                docFiles: docFiles,
+                pdfFiles: provider.pdfFiles,
+                docFiles: provider.docFiles,
               ),
               const SizedBox(
                 height: 40,
