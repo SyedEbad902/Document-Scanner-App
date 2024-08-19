@@ -17,7 +17,6 @@ class _PdfViewerState extends State<PdfViewer> {
     super.initState();
     pdffControllerPinch =
         PdfControllerPinch(document: PdfDocument.openFile(widget.filepath));
-    print(widget.filepath);
   }
 
   @override
@@ -28,13 +27,13 @@ class _PdfViewerState extends State<PdfViewer> {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back,
             color: Colors.white,
           ),
         ),
         backgroundColor: Colors.red,
-        title: Text(
+        title: const Text(
           "PDF Viewer",
           style: TextStyle(
               color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
@@ -54,7 +53,7 @@ class _PdfViewerState extends State<PdfViewer> {
             children: [
               Text(
                 "Total Pages $totalPageCount",
-                style: TextStyle(
+                style: const TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
                     color: Colors.white),
@@ -75,7 +74,7 @@ class _PdfViewerState extends State<PdfViewer> {
     return Expanded(
         child: PdfViewPinch(
       controller: pdffControllerPinch,
-      backgroundDecoration: BoxDecoration(boxShadow: [
+      backgroundDecoration: const BoxDecoration(boxShadow: [
         BoxShadow(color: Color(0x73000000), blurRadius: 4, offset: Offset(2, 2))
       ], color: Colors.white24),
       onDocumentLoaded: (doc) {

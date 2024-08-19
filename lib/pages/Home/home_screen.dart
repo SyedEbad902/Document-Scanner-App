@@ -120,7 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
     //  String extension = p.extension(files).toLowerCase();
     if (files != null) {
       for (var i = 0; i < files.length; i++) {
-        String extension = await p.extension(files[i]).toLowerCase();
+        String extension = p.extension(files[i]).toLowerCase();
         if (extension == ".pdf") {
           pdfFiles.add(files[i]);
         } else {
@@ -131,7 +131,6 @@ class _HomeScreenState extends State<HomeScreen> {
     } else {
       print("Error");
     }
-    ;
   }
 
   Future<List<String>> _searchFiles() async {

@@ -53,15 +53,11 @@ class _DocxFilesState extends State<DocxFiles> {
                       child: ListTile(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),
-                        leading: Container(
-                          // padding: EdgeInsets.only(top: 20),
-
-                          child: Image.asset(
-                            "assets/images/docx.png",
-                            height: 50,
-                            width: 50,
-                            fit: BoxFit.cover,
-                          ),
+                        leading: Image.asset(
+                          "assets/images/docx.png",
+                          height: 50,
+                          width: 50,
+                          fit: BoxFit.cover,
                         ),
                         title: Text(
                           path.split('/').last,

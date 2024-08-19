@@ -26,6 +26,7 @@ class _DocumentScreenState extends State<DocumentScreen> {
   List<String> items = ['Sort by date', 'Sort by week', 'Sort by month'];
   String? selectedValue;
 
+  // ignore: unused_field
   Uint8List? _previewImage;
   final List<Map<String, dynamic>> _pdfPreviews = [];
 
@@ -242,7 +243,7 @@ class _DocumentScreenState extends State<DocumentScreen> {
               ),
             )
           : AlertDialog(
-              content: Row(
+              content: const Row(
                 children: [
                   CircularProgressIndicator(color: Color(0xff9694FF)),
                   SizedBox(
@@ -258,7 +259,7 @@ class _DocumentScreenState extends State<DocumentScreen> {
               shadowColor: Colors.grey,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
-                  side: BorderSide(color: Color(0xff9694FF)))),
+                  side: const BorderSide(color: Color(0xff9694FF)))),
     );
   }
 }

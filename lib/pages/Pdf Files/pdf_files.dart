@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:open_file/open_file.dart';
 import 'package:pdf_scanner/pages/pdf%20View/pdf_viewer.dart';
 
 class PdfFiles extends StatefulWidget {
@@ -11,9 +10,9 @@ class PdfFiles extends StatefulWidget {
 }
 
 class _PdfFilesState extends State<PdfFiles> {
-  void _openFile(String path) {
-    OpenFile.open(path);
-  }
+  // void _openFile(String path) {
+  //   OpenFile.open(path);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -53,20 +52,13 @@ class _PdfFilesState extends State<PdfFiles> {
                       child: ListTile(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),
-                        leading: Container(
-                            // padding: EdgeInsets.only(top: 20),
-                            // decoration: BoxDecoration(
-                            //     color: Colors.redAccent,
-                            //     borderRadius: BorderRadius.circular(10),
-                            //     border: Border.all(color: Colors.red)),
-
-                            child: Image.asset(
-                          "assets/images/pdf1.png",
-                          fit: BoxFit.contain,
-                          height: 50,
-                          width: 50,
-                          // color: Colors.transparent,
-                        )),
+                        leading: Image.asset(
+                                                  "assets/images/pdf1.png",
+                                                  fit: BoxFit.contain,
+                                                  height: 50,
+                                                  width: 50,
+                                                  // color: Colors.transparent,
+                                                ),
                         title: Text(
                           path.split('/').last,
                           style: const TextStyle(

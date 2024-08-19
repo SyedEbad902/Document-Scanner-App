@@ -20,11 +20,13 @@ class _DocScannerState extends State<DocScanner> {
     } on PlatformException {
       scannedDocuments = 'Failed to get scanned documents.';
     }
+    // ignore: avoid_print
     print(scannedDocuments.toString());
     if (!mounted) return;
     setState(() {
       _scannedDocuments = scannedDocuments;
     });
+    // ignore: avoid_print
     print(_scannedDocuments);
   }
 
@@ -36,6 +38,7 @@ class _DocScannerState extends State<DocScanner> {
     } on PlatformException {
       scannedDocuments = 'Failed to get scanned documents.';
     }
+    // ignore: avoid_print
     print(scannedDocuments.toString());
     if (!mounted) return;
     setState(() {
@@ -54,7 +57,7 @@ class _DocScannerState extends State<DocScanner> {
               'Document Scanner',
               style: TextStyle(color: Colors.white),
             ),
-            backgroundColor: Color(0xff9694FF),
+            backgroundColor: const Color(0xff9694FF),
           ),
           body: Center(
             child: Column(
@@ -67,11 +70,11 @@ class _DocScannerState extends State<DocScanner> {
             ),
           ),
           floatingActionButton: FloatingActionButton(
-            backgroundColor: Color(0xff9694FF),
+            backgroundColor: const Color(0xff9694FF),
             onPressed: () {
               scanDocument();
             },
-            child: Icon(
+            child: const Icon(
               Icons.camera,
               color: Colors.white,
               size: 30,

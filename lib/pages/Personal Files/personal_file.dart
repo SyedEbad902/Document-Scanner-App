@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 // import 'package:open_file/open_file.dart';
 import 'package:path/path.dart' as p;
-import 'package:pdfx/pdfx.dart';
 
 import '../pdf View/pdf_viewer.dart';
 import 'widgets/search_bar.dart';
@@ -36,24 +35,24 @@ class _GetFilesState extends State<GetFiles> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CustomSearchBar(),
-                    SizedBox(
+                    const CustomSearchBar(),
+                    const SizedBox(
                       height: 10,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 10),
                       child: Text(
                         "Your Files",
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 18),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     ListView.builder(
                       shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       itemCount: widget.getFiles.length,
                       itemBuilder: (context, index) {
                         final path = widget.getFiles[index];

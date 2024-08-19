@@ -194,7 +194,7 @@ class CustomContainers extends StatelessWidget {
                               margin: const EdgeInsets.only(left: 8),
                               child: Text(
                                 "${docFiles.length} Files",
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 12, fontWeight: FontWeight.w400),
                               )),
                         ],
