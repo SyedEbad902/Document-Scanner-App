@@ -1,7 +1,9 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:path/path.dart' as p;
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:pdfx/pdfx.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
@@ -80,6 +82,102 @@ class HomeProvider extends ChangeNotifier {
     notifyListeners();
     }
 
+     Uint8List? previewImage;
+
+List<Map<String, dynamic>> pdfPreviews = [];
+
+  Future<void> loadFiles() async {
+    const directoryPath =
+        "/data/user/0/com.example.pdf_scanner/cache/mlkit_docscan_ui_client";
+    final directory = Directory(directoryPath);
+
+    if (await directory.exists()) {
+      final List<FileSystemEntity> entities = await directory.list().toList();
+      final List<File> pdfFiles = entities
+          .whereType<File>()
+          .where((file) => file.path.endsWith('.pdf'))
+          .toList();
+
+      // Process files in parallel
+      await Future.wait(pdfFiles.map((file) async {
+        final previewImage = await _renderFirstPage(file.path);
+        if (previewImage != null) {
+          pdfPreviews.add({
+            'path': file.path,
+            'preview': previewImage,
+          });
+        }
+      }));
+
+      notifyListeners();
+    }
+  }
+
+  Future<Widget?> _renderFirstPage(String pdfPath) async {
+    try {
+      final document = await PdfDocument.openFile(pdfPath);
+      final page = await document.getPage(1);
+
+      // Render the first page
+      final pageImage = await page.render(
+        width: page.width,
+        height: page.height,
+      );
+      await page.close();
+
+      return Image.memory(pageImage!.bytes);
+    } catch (e) {
+      print('Error rendering PDF page: $e');
+      return null;
+    }
+  }
+
+/////////////////////////////////////////////////////////
+  // List<File> _files = [];
+  // List<Map<String, dynamic>> pdfPreviews = [];
+  // Future<void> loadFiles() async {
+  //   // const directoryPath = "/data/user/0/com.example.pdf_scanner/app_flutter";
+  //   const directoryPath =
+  //       "/data/user/0/com.example.pdf_scanner/cache/mlkit_docscan_ui_client";
+  //   final directory = Directory(directoryPath);
+
+  //   if (await directory.exists()) {
+  //     final List<FileSystemEntity> entities = await directory.list().toList();
+  //     final List<File> files = entities.whereType<File>().toList();
+
+  //     for (File file in files) {
+  //       final previewImage = await _renderFirstPage(file.path);
+  //       if (previewImage != null) {
+  //         // setState(() {
+  //         pdfPreviews.add({
+  //           'path': file.path,
+  //           'preview': previewImage,
+  //         });
+  //         // });
+  //       }
+  //     }
+  //     notifyListeners();
+  //   }
+  // }
+
+  // Future<Widget?> _renderFirstPage(String pdfPath) async {
+  //   try {
+  //     final document = await PdfDocument.openFile(pdfPath);
+  //     final page = await document.getPage(1);
+
+  //     final pageImage = await page.render(
+  //       width: page.width,
+  //       height: page.height,
+  //     );
+  //     await page.close();
+
+  //     return Image.memory(pageImage!.bytes);
+  //   } catch (e) {
+  //     print('Error rendering PDF page: $e');
+  //     return null;
+  //   }
+  // }
+
   static HomeProvider of(
     BuildContext context, {
     bool listen = true,
@@ -89,4 +187,6 @@ class HomeProvider extends ChangeNotifier {
       listen: listen,
     );
   }
+
+
 }

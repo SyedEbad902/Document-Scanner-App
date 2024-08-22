@@ -1,13 +1,10 @@
 // ignore_for_file: avoid_print, unnecessary_null_comparison
 import 'dart:async';
-import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:pdf_scanner/provider/home_screen_provider.dart';
-import 'package:pdfx/pdfx.dart';
 import 'package:provider/provider.dart';
 
 import 'widgets/appbar.dart';
@@ -21,77 +18,89 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
-
   bool dataLoaded = false;
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPersistentFrameCallback((_) {
       if (!dataLoaded) {
-        Provider.of<HomeProvider>(context, listen: false).searchFiles();
-        Timer(const Duration(milliseconds: 500), () {
-          Provider.of<HomeProvider>(context, listen: false).filesCheck();
-        });
+        if (Provider.of<HomeProvider>(context, listen: false).files.isEmpty) {
+          Provider.of<HomeProvider>(context, listen: false).searchFiles();
+        }
+        if (Provider.of<HomeProvider>(context, listen: false)
+                .docFiles
+                .isEmpty &&
+            Provider.of<HomeProvider>(context, listen: false)
+                .pdfFiles
+                .isEmpty) {
+          Timer(const Duration(milliseconds: 500), () {
+            Provider.of<HomeProvider>(context, listen: false).filesCheck();
+          });
+        }
+        if (Provider.of<HomeProvider>(context, listen: false)
+            .pdfPreviews
+            .isNotEmpty) {
+          Provider.of<HomeProvider>(context, listen: false).pdfPreviews.clear();
+          Provider.of<HomeProvider>(context, listen: false).loadFiles();
+        } else {
+          Provider.of<HomeProvider>(context, listen: false).loadFiles();
+        }
+
         dataLoaded = true;
       }
     });
 
     initBannerAd();
-    _loadFiles();
-    // _searchFiles();
-    Timer(const Duration(milliseconds: 500), () {
-      // filesCheck();
-    });
+    // _loadFiles();
   }
 
 ////////////////////////get pdf docs///////////////////////////
-  Uint8List? previewImage;
+  // Uint8List? previewImage;
 
-  // List<File> _files = [];
-  List<Map<String, dynamic>> pdfPreviews = [];
-  Future<void> _loadFiles() async {
-    // const directoryPath = "/data/user/0/com.example.pdf_scanner/app_flutter";
-    const directoryPath =
-        "/data/user/0/com.example.pdf_scanner/cache/mlkit_docscan_ui_client";
-    final directory = Directory(directoryPath);
+  // // List<File> _files = [];
+  // List<Map<String, dynamic>> pdfPreviews = [];
+  // Future<void> _loadFiles() async {
+  //   // const directoryPath = "/data/user/0/com.example.pdf_scanner/app_flutter";
+  //   const directoryPath =
+  //       "/data/user/0/com.example.pdf_scanner/cache/mlkit_docscan_ui_client";
+  //   final directory = Directory(directoryPath);
 
-    if (await directory.exists()) {
-      final List<FileSystemEntity> entities = await directory.list().toList();
-      final List<File> files = entities.whereType<File>().toList();
+  //   if (await directory.exists()) {
+  //     final List<FileSystemEntity> entities = await directory.list().toList();
+  //     final List<File> files = entities.whereType<File>().toList();
 
-      for (File file in files) {
-        final previewImage = await _renderFirstPage(file.path);
-        if (previewImage != null) {
-          // setState(() {
-          pdfPreviews.add({
-            'path': file.path,
-            'preview': previewImage,
-          });
-          // });
-        }
-      }
-      setState(() {});
-    }
-  }
+  //     for (File file in files) {
+  //       final previewImage = await _renderFirstPage(file.path);
+  //       if (previewImage != null) {
+  //         // setState(() {
+  //         pdfPreviews.add({
+  //           'path': file.path,
+  //           'preview': previewImage,
+  //         });
+  //         // });
+  //       }
+  //     }
+  //     setState(() {});
+  //   }
+  // }
 
-  Future<Widget?> _renderFirstPage(String pdfPath) async {
-    try {
-      final document = await PdfDocument.openFile(pdfPath);
-      final page = await document.getPage(1);
+  // Future<Widget?> _renderFirstPage(String pdfPath) async {
+  //   try {
+  //     final document = await PdfDocument.openFile(pdfPath);
+  //     final page = await document.getPage(1);
 
-      final pageImage = await page.render(
-        width: page.width,
-        height: page.height,
-      );
-      await page.close();
+  //     final pageImage = await page.render(
+  //       width: page.width,
+  //       height: page.height,
+  //     );
+  //     await page.close();
 
-      return Image.memory(pageImage!.bytes);
-    } catch (e) {
-      print('Error rendering PDF page: $e');
-      return null;
-    }
-  }
+  //     return Image.memory(pageImage!.bytes);
+  //   } catch (e) {
+  //     print('Error rendering PDF page: $e');
+  //     return null;
+  //   }
+  // }
 ////////////////////////////////////////////////////////////////
 
   void showToast(String message) {
@@ -179,7 +188,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               CustomContainers(
                 getfiles: provider.files,
-                getpdfFile: pdfPreviews,
+                getpdfFile: provider.pdfPreviews,
                 pdfFiles: provider.pdfFiles,
                 docFiles: provider.docFiles,
               ),

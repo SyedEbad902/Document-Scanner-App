@@ -1,13 +1,12 @@
 // ignore_for_file: avoid_print
 
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pdf_scanner/pages/Documents%20page/widgets/search_bar.dart';
 import 'package:pdf_scanner/pages/pdf%20View/pdf_viewer.dart';
-import 'package:pdfx/pdfx.dart';
+import 'package:pdf_scanner/provider/home_screen_provider.dart';
 
 import 'widgets/document_appbar.dart';
 
@@ -27,8 +26,8 @@ class _DocumentScreenState extends State<DocumentScreen> {
   String? selectedValue;
 
   // ignore: unused_field
-  Uint8List? _previewImage;
-  final List<Map<String, dynamic>> _pdfPreviews = [];
+  // Uint8List? _previewImage;
+  // final List<Map<String, dynamic>> _pdfPreviews = [];
 
   void showToast(String message) {
     Fluttertoast.showToast(
@@ -60,114 +59,113 @@ class _DocumentScreenState extends State<DocumentScreen> {
   @override
   void initState() {
     super.initState();
-    _loadFiles();
+    // _loadFiles();
     // List<File> file = _files.map((path) => File(path)).toList();
     // Call the function to load files in initState
   }
 
 //////////////////////////////////////////////////////////////
-  Future<void> _loadFiles() async {
-    // const directoryPath = "/data/user/0/com.example.pdf_scanner/app_flutter";
-    const directoryPath =
-        "/data/user/0/com.example.pdf_scanner/cache/mlkit_docscan_ui_client";
-    final directory = Directory(directoryPath);
+  // Future<void> _loadFiles() async {
+  //   // const directoryPath = "/data/user/0/com.example.pdf_scanner/app_flutter";
+  //   const directoryPath =
+  //       "/data/user/0/com.example.pdf_scanner/cache/mlkit_docscan_ui_client";
+  //   final directory = Directory(directoryPath);
 
-    if (await directory.exists()) {
-      final List<FileSystemEntity> entities = await directory.list().toList();
-      print("this is entity $entities");
-      final List<File> files = entities.whereType<File>().toList();
-      print(files);
+  //   if (await directory.exists()) {
+  //     final List<FileSystemEntity> entities = await directory.list().toList();
+  //     print("this is entity $entities");
+  //     final List<File> files = entities.whereType<File>().toList();
+  //     print(files);
 
-      for (File file in files) {
-        final previewImage = await _renderFirstPage(file.path);
-        if (previewImage != null) {
-          setState(() {
-            _pdfPreviews.add({
-              'path': file.path,
-              'preview': previewImage,
-              // 'count': ,
-            });
-          });
-        }
-      }
-      // setState(() {});
-      // print(_pdfPreviews);
-    }
-  }
+  //     for (File file in files) {
+  //       final previewImage = await _renderFirstPage(file.path);
+  //       if (previewImage != null) {
+  //         setState(() {
+  //           _pdfPreviews.add({
+  //             'path': file.path,
+  //             'preview': previewImage,
+  //             // 'count': ,
+  //           });
+  //         });
+  //       }
+  //     }
+  //     // setState(() {});
+  //     // print(_pdfPreviews);
+  //   }
+  // }
 
-  Future<Widget?> _renderFirstPage(String pdfPath) async {
-    try {
-      final document = await PdfDocument.openFile(pdfPath);
-      final page = await document.getPage(1);
+  // Future<Widget?> _renderFirstPage(String pdfPath) async {
+  //   try {
+  //     final document = await PdfDocument.openFile(pdfPath);
+  //     final page = await document.getPage(1);
 
-      final pageImage = await page.render(
-        width: page.width,
-        height: page.height,
-      );
-      await page.close();
+  //     final pageImage = await page.render(
+  //       width: page.width,
+  //       height: page.height,
+  //     );
+  //     await page.close();
 
-      return Image.memory(pageImage!.bytes);
-    } catch (e) {
-      print('Error rendering PDF page: $e');
-      return null;
-    }
-  }
+  //     return Image.memory(pageImage!.bytes);
+  //   } catch (e) {
+  //     print('Error rendering PDF page: $e');
+  //     return null;
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
+    final provider = HomeProvider.of(context);
     // String imageName = widget.imagePath.split('/').last;
 
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: _pdfPreviews.isNotEmpty
-          ? Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const DocumentAppBar(),
-                    const Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        "Documents",
-                        style: TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    const CustomSearchBar(),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: DropdownButton<String>(
-                        value: selectedValue,
-                        hint: const Text('Sort..'),
-                        items: items.map((String item) {
-                          return DropdownMenuItem<String>(
-                            value: item,
-                            child: Text(item),
-                          );
-                        }).toList(),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            selectedValue = newValue;
-                          });
-                        },
-                      ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Text(
-                        "Today",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 18),
-                      ),
-                    ),
-                    ListView.builder(
+        backgroundColor: Colors.white,
+        body: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const DocumentAppBar(),
+                const Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Documents",
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                const CustomSearchBar(),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: DropdownButton<String>(
+                    value: selectedValue,
+                    hint: const Text('Sort..'),
+                    items: items.map((String item) {
+                      return DropdownMenuItem<String>(
+                        value: item,
+                        child: Text(item),
+                      );
+                    }).toList(),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        selectedValue = newValue;
+                      });
+                    },
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.all(10),
+                  child: Text(
+                    "Today",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  ),
+                ),
+                provider.pdfPreviews.isNotEmpty
+                    ? ListView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        itemCount: _pdfPreviews.length,
+                        itemCount: provider.pdfPreviews.length,
                         itemBuilder: (context, index) {
-                          final pdf = _pdfPreviews[index];
+                          final pdf = provider.pdfPreviews[index];
                           print("this is pdf $pdf");
 
                           return GestureDetector(
@@ -222,12 +220,13 @@ class _DocumentScreenState extends State<DocumentScreen> {
                                 ),
                                 trailing: IconButton(
                                     onPressed: () {
-                                      print(_pdfPreviews);
+                                      print(
+                                          " Deleted file ${provider.pdfPreviews[index]["path"]}");
 
                                       setState(() {
-                                        deleteFile(_pdfPreviews[index]["path"]);
-                                        _pdfPreviews.clear();
-                                        _loadFiles();
+                                        deleteFile(provider.pdfPreviews[index]
+                                            ["path"]);
+                                        provider.pdfPreviews.removeAt(index);
                                       });
                                     },
                                     icon: const Icon(
@@ -238,28 +237,37 @@ class _DocumentScreenState extends State<DocumentScreen> {
                             ),
                           );
                         })
-                  ],
-                ),
-              ),
-            )
-          : AlertDialog(
-              content: const Row(
-                children: [
-                  CircularProgressIndicator(color: Color(0xff9694FF)),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Text(
-                    "Opening Documents...",
-                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-                  )
-                ],
-              ),
-              backgroundColor: Colors.white,
-              shadowColor: Colors.grey,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  side: const BorderSide(color: Color(0xff9694FF)))),
-    );
+                    : Container(
+                        height: MediaQuery.of(context).size.height * 0.54,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Center(child: CircularProgressIndicator()),
+                          ],
+                        ),
+                      ),
+              ],
+            ),
+          ),
+        )
+        // : AlertDialog(
+        //     content: const Row(
+        //       children: [
+        //         CircularProgressIndicator(color: Color(0xff9694FF)),
+        //         SizedBox(
+        //           width: 20,
+        //         ),
+        //         Text(
+        //           "Opening Documents...",
+        //           style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+        //         )
+        //       ],
+        //     ),
+        //     backgroundColor: Colors.white,
+        //     shadowColor: Colors.grey,
+        //     shape: RoundedRectangleBorder(
+        //         borderRadius: BorderRadius.circular(10),
+        //         side: const BorderSide(color: Color(0xff9694FF)))),
+        );
   }
 }
