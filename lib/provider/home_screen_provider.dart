@@ -10,7 +10,6 @@ import 'package:provider/provider.dart';
 class HomeProvider extends ChangeNotifier {
   List<String> files = [];
 
-
   void showToast(String message) {
     Fluttertoast.showToast(
       msg: message,
@@ -80,11 +79,28 @@ class HomeProvider extends ChangeNotifier {
     }
     // setState(() {});
     notifyListeners();
+  }
+
+  Uint8List? previewImage;
+
+  List<Map<String, dynamic>> pdfPreviews = [];
+  
+  List<File> pdfFilesPaths = [];
+
+  Future<void> loadFiless() async {
+    const directoryPath =
+        "/data/user/0/com.example.pdf_scanner/cache/mlkit_docscan_ui_client";
+    final directory = Directory(directoryPath);
+
+    if (await directory.exists()) {
+      final List<FileSystemEntity> entities = await directory.list().toList();
+      pdfFilesPaths = entities
+          .whereType<File>()
+          .where((file) => file.path.endsWith('.pdf'))
+          .toList();
     }
-
-     Uint8List? previewImage;
-
-List<Map<String, dynamic>> pdfPreviews = [];
+    notifyListeners();
+  }
 
   Future<void> loadFiles() async {
     const directoryPath =
@@ -93,10 +109,11 @@ List<Map<String, dynamic>> pdfPreviews = [];
 
     if (await directory.exists()) {
       final List<FileSystemEntity> entities = await directory.list().toList();
-      final List<File> pdfFiles = entities
+      List<File> pdfFiles = entities
           .whereType<File>()
           .where((file) => file.path.endsWith('.pdf'))
           .toList();
+      // print("this is pdffiless $pdfFiless");
 
       // Process files in parallel
       await Future.wait(pdfFiles.map((file) async {
@@ -187,6 +204,4 @@ List<Map<String, dynamic>> pdfPreviews = [];
       listen: listen,
     );
   }
-
-
 }

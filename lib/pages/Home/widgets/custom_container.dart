@@ -35,7 +35,7 @@ class CustomContainers extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) => GetFiles(
-                                getFiles: getfiles,
+                               
                               )));
                 },
                 child: Container(
@@ -90,7 +90,6 @@ class CustomContainers extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) => PdfFiles(
-                                pdfFiles: pdfFiles,
                               )));
                 },
                 child: Container(
@@ -154,7 +153,6 @@ class CustomContainers extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) => DocxFiles(
-                                docFiles: docFiles,
                               )));
                 },
                 child: Container(

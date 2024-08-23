@@ -5,6 +5,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
 import 'pages/splash_screen.dart';
+import 'provider/document_screen_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) => MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => HomeProvider()),
+          ChangeNotifierProvider(create: (_) => DocumentScreenProvider()),
         ],
         child: const MaterialApp(
           debugShowCheckedModeBanner: false,

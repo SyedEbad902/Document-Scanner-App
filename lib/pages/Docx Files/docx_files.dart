@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:open_file/open_file.dart';
 
-class DocxFiles extends StatefulWidget {
-  final List docFiles;
+import '../../provider/home_screen_provider.dart';
 
-  const DocxFiles({super.key, required this.docFiles});
+class DocxFiles extends StatefulWidget {
+
+  const DocxFiles({super.key, });
 
   @override
   State<DocxFiles> createState() => _DocxFilesState();
@@ -17,7 +18,9 @@ class _DocxFilesState extends State<DocxFiles> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.docFiles.isNotEmpty
+    final homeProvider = HomeProvider.of(context);
+
+    return homeProvider.docFiles.isNotEmpty
         ? Scaffold(
             appBar: AppBar(
               title: const Text(
@@ -33,9 +36,9 @@ class _DocxFilesState extends State<DocxFiles> {
             body: Padding(
               padding: const EdgeInsets.all(8.0),
               child: ListView.builder(
-                itemCount: widget.docFiles.length,
+                itemCount: homeProvider.docFiles.length,
                 itemBuilder: (context, index) {
-                  final path = widget.docFiles[index];
+                  final path = homeProvider.docFiles[index];
                   // String extension =
                   //     p.extension(widget.getFiles[index]).toLowerCase();
 

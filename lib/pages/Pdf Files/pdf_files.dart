@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:pdf_scanner/pages/pdf%20View/pdf_viewer.dart';
 
+import '../../provider/home_screen_provider.dart';
+
 class PdfFiles extends StatefulWidget {
-  final List pdfFiles;
-  const PdfFiles({super.key, required this.pdfFiles});
+  const PdfFiles({super.key, });
 
   @override
   State<PdfFiles> createState() => _PdfFilesState();
@@ -16,7 +17,9 @@ class _PdfFilesState extends State<PdfFiles> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.pdfFiles.isNotEmpty
+    final homeProvider = HomeProvider.of(context);
+
+    return homeProvider.pdfFiles.isNotEmpty
         ? Scaffold(
             appBar: AppBar(
               title: const Text(
@@ -32,9 +35,9 @@ class _PdfFilesState extends State<PdfFiles> {
             body: Padding(
               padding: const EdgeInsets.all(8.0),
               child: ListView.builder(
-                itemCount: widget.pdfFiles.length,
+                itemCount: homeProvider.pdfFiles.length,
                 itemBuilder: (context, index) {
-                  final path = widget.pdfFiles[index];
+                  final path = homeProvider.pdfFiles[index];
                   // String extension =
                   //     p.extension(widget.getFiles[index]).toLowerCase();
 

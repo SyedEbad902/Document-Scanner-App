@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pdf_scanner/pages/Documents%20page/widgets/search_bar.dart';
 import 'package:pdf_scanner/pages/pdf%20View/pdf_viewer.dart';
+import 'package:pdf_scanner/provider/document_screen_provider.dart';
 import 'package:pdf_scanner/provider/home_screen_provider.dart';
 
 import 'widgets/document_appbar.dart';
@@ -29,32 +30,7 @@ class _DocumentScreenState extends State<DocumentScreen> {
   // Uint8List? _previewImage;
   // final List<Map<String, dynamic>> _pdfPreviews = [];
 
-  void showToast(String message) {
-    Fluttertoast.showToast(
-      msg: message,
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      backgroundColor: Colors.black,
-      textColor: Colors.white,
-      fontSize: 16.0,
-    );
-  }
-
-  void deleteFile(String path) async {
-    try {
-      final file = File(path);
-
-      if (await file.exists()) {
-        await file.delete();
-        showToast("File deleted");
-      } else {
-        print('File not found: $path');
-        showToast("Error Deleting File");
-      }
-    } catch (e) {
-      print('Error deleting file: $e');
-    }
-  }
+  
 
   @override
   void initState() {
@@ -114,7 +90,8 @@ class _DocumentScreenState extends State<DocumentScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = HomeProvider.of(context);
+    final homeProvider = HomeProvider.of(context);
+    final documentProvider = DocumentScreenProvider.of(context);
     // String imageName = widget.imagePath.split('/').last;
 
     return Scaffold(
@@ -159,13 +136,13 @@ class _DocumentScreenState extends State<DocumentScreen> {
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                   ),
                 ),
-                provider.pdfPreviews.isNotEmpty
+                homeProvider.pdfPreviews.isNotEmpty
                     ? ListView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        itemCount: provider.pdfPreviews.length,
+                        itemCount: homeProvider.pdfPreviews.length,
                         itemBuilder: (context, index) {
-                          final pdf = provider.pdfPreviews[index];
+                          final pdf = homeProvider.pdfPreviews[index];
                           print("this is pdf $pdf");
 
                           return GestureDetector(
@@ -220,13 +197,19 @@ class _DocumentScreenState extends State<DocumentScreen> {
                                 ),
                                 trailing: IconButton(
                                     onPressed: () {
-                                      print(
-                                          " Deleted file ${provider.pdfPreviews[index]["path"]}");
+                                      // print(
+                                      //     " Deleted file ${provider.pdfPreviews[index]["path"]}");
+                                      //     print( "this is pdfpreviews ${provider.pdfPreviews.removeAt(index)}");
+                                      //     print( "this is pdffiless${provider.pdfFiless.removeAt(index)}");
 
                                       setState(() {
-                                        deleteFile(provider.pdfPreviews[index]
-                                            ["path"]);
-                                        provider.pdfPreviews.removeAt(index);
+                                        documentProvider.deleteFile(homeProvider
+                                            .pdfPreviews[index]["path"]);
+
+                                        homeProvider.pdfPreviews
+                                            .removeAt(index);
+                                        // provider.pdfFiless.removeAt(index);
+                                        homeProvider.loadFiless();
                                       });
                                     },
                                     icon: const Icon(

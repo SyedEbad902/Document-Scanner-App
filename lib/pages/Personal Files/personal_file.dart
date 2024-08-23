@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 // import 'package:open_file/open_file.dart';
 import 'package:path/path.dart' as p;
+import 'package:pdf_scanner/provider/home_screen_provider.dart';
 
 import '../pdf View/pdf_viewer.dart';
 import 'widgets/search_bar.dart';
 
 class GetFiles extends StatefulWidget {
-  final List getFiles;
+  // final List getFiles;
 
-  const GetFiles({super.key, required this.getFiles});
+  const GetFiles({
+    super.key,
+  });
 
   @override
   State<GetFiles> createState() => _GetFilesState();
@@ -21,7 +24,8 @@ class _GetFilesState extends State<GetFiles> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.getFiles.isNotEmpty
+    final homeProvider = HomeProvider.of(context);
+    return homeProvider.files.isNotEmpty
         ? Scaffold(
             backgroundColor: Colors.white,
             appBar: AppBar(
@@ -53,15 +57,20 @@ class _GetFilesState extends State<GetFiles> {
                     ListView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: widget.getFiles.length,
+                      itemCount: homeProvider.files.length,
                       itemBuilder: (context, index) {
-                        final path = widget.getFiles[index];
+                        final path = homeProvider.files[index];
                         String extension =
-                            p.extension(widget.getFiles[index]).toLowerCase();
+                            p.extension(homeProvider.files[index]).toLowerCase();
 
                         // print(path.endsWith('.docx'));
                         return GestureDetector(
-                          onTap: () => Navigator.push(context,MaterialPageRoute(builder: (context)=> PdfViewer(filepath: path,))),
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => PdfViewer(
+                                        filepath: path,
+                                      ))),
                           child: Container(
                             margin: const EdgeInsets.only(top: 5),
                             padding: const EdgeInsets.only(top: 8),
@@ -75,7 +84,7 @@ class _GetFilesState extends State<GetFiles> {
                                   borderRadius: BorderRadius.circular(20)),
                               leading: Container(
                                 // padding: EdgeInsets.only(top: 20),
-                             
+
                                 child: extension == ".pdf"
                                     ? Image.asset(
                                         "assets/images/pdf1.png",
