@@ -1,9 +1,7 @@
 // ignore_for_file: avoid_print
 
-import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pdf_scanner/pages/Documents%20page/widgets/search_bar.dart';
 import 'package:pdf_scanner/pages/pdf%20View/pdf_viewer.dart';
 import 'package:pdf_scanner/provider/document_screen_provider.dart';

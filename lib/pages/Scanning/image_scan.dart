@@ -48,39 +48,37 @@ class _DocScannerState extends State<DocScanner> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-          appBar: AppBar(
-            toolbarHeight: 70,
-            centerTitle: true,
-            title: const Text(
-              'Document Scanner',
-              style: TextStyle(color: Colors.white),
-            ),
-            backgroundColor: const Color(0xff9694FF),
+    return Scaffold(
+        appBar: AppBar(
+          toolbarHeight: 70,
+          centerTitle: true,
+          title: const Text(
+            'Document Scanner',
+            style: TextStyle(color: Colors.white),
           ),
-          body: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _scannedDocuments != null
-                    ? Text(_scannedDocuments.toString())
-                    : const Text("No Documents Scanned"),
-              ],
-            ),
+          backgroundColor: const Color(0xff9694FF),
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _scannedDocuments != null
+                  ? Text(_scannedDocuments.toString())
+                  : const Text("No Documents Scanned"),
+            ],
           ),
-          floatingActionButton: FloatingActionButton(
-            backgroundColor: const Color(0xff9694FF),
-            onPressed: () {
-              scanDocument();
-            },
-            child: const Icon(
-              Icons.camera,
-              color: Colors.white,
-              size: 30,
-            ),
-          )),
-    );
+        ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: const Color(0xff9694FF),
+          onPressed: () {
+            scanDocument();
+          },
+          child: const Icon(
+            Icons.camera,
+            color: Colors.white,
+            size: 30,
+          ),
+        ));
   }
 }
 

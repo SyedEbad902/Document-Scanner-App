@@ -1,10 +1,12 @@
 // ignore_for_file: avoid_print, unnecessary_null_comparison
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:pdf_scanner/provider/home_screen_provider.dart';
 import 'package:provider/provider.dart';
+
 import 'widgets/appbar.dart';
 import 'widgets/custom_container.dart';
 
@@ -39,7 +41,9 @@ class _HomeScreenState extends State<HomeScreen> {
             .pdfPreviews
             .isNotEmpty) {
           Provider.of<HomeProvider>(context, listen: false).pdfPreviews.clear();
-          Provider.of<HomeProvider>(context, listen: false).pdfFilesPaths.clear();
+          Provider.of<HomeProvider>(context, listen: false)
+              .pdfFilesPaths
+              .clear();
           Provider.of<HomeProvider>(context, listen: false).loadFiless();
           Provider.of<HomeProvider>(context, listen: false).loadFiles();
         } else {
@@ -206,9 +210,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     )
                   : const SizedBox(
                       child: Center(
-                        child: CircularProgressIndicator(
-                          color: Color(0xff9694FF),
-                        ),
+                        child: Text("Loading Ad..."),
                       ),
                     ),
             ],

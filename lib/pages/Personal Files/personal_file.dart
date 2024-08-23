@@ -29,9 +29,16 @@ class _GetFilesState extends State<GetFiles> {
         ? Scaffold(
             backgroundColor: Colors.white,
             appBar: AppBar(
-              title: const Text('Personal Files'),
+              title: const Text(
+                'Personal Files',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
               backgroundColor: const Color(0xff9694FF),
               centerTitle: true,
+              iconTheme: IconThemeData(color: Colors.white),
             ),
             body: Padding(
               padding: const EdgeInsets.all(10.0),
@@ -60,8 +67,9 @@ class _GetFilesState extends State<GetFiles> {
                       itemCount: homeProvider.files.length,
                       itemBuilder: (context, index) {
                         final path = homeProvider.files[index];
-                        String extension =
-                            p.extension(homeProvider.files[index]).toLowerCase();
+                        String extension = p
+                            .extension(homeProvider.files[index])
+                            .toLowerCase();
 
                         // print(path.endsWith('.docx'));
                         return GestureDetector(

@@ -4,7 +4,9 @@ import 'package:pdf_scanner/pages/pdf%20View/pdf_viewer.dart';
 import '../../provider/home_screen_provider.dart';
 
 class PdfFiles extends StatefulWidget {
-  const PdfFiles({super.key, });
+  const PdfFiles({
+    super.key,
+  });
 
   @override
   State<PdfFiles> createState() => _PdfFilesState();
@@ -30,6 +32,7 @@ class _PdfFilesState extends State<PdfFiles> {
                     color: Colors.white),
               ),
               backgroundColor: Colors.red,
+              iconTheme: IconThemeData(color: Colors.white),
               centerTitle: true,
             ),
             body: Padding(
@@ -43,7 +46,10 @@ class _PdfFilesState extends State<PdfFiles> {
 
                   // print(path.endsWith('.docx'));
                   return GestureDetector(
-                    onTap: () => Navigator.push(context,MaterialPageRoute(builder: (context)=>PdfViewer(filepath: path) )),
+                    onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PdfViewer(filepath: path))),
                     child: Container(
                       margin: const EdgeInsets.only(top: 5),
                       padding: const EdgeInsets.only(top: 8),
@@ -56,12 +62,12 @@ class _PdfFilesState extends State<PdfFiles> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),
                         leading: Image.asset(
-                                                  "assets/images/pdf1.png",
-                                                  fit: BoxFit.contain,
-                                                  height: 50,
-                                                  width: 50,
-                                                  // color: Colors.transparent,
-                                                ),
+                          "assets/images/pdf1.png",
+                          fit: BoxFit.contain,
+                          height: 50,
+                          width: 50,
+                          // color: Colors.transparent,
+                        ),
                         title: Text(
                           path.split('/').last,
                           style: const TextStyle(

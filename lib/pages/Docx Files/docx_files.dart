@@ -4,8 +4,9 @@ import 'package:open_file/open_file.dart';
 import '../../provider/home_screen_provider.dart';
 
 class DocxFiles extends StatefulWidget {
-
-  const DocxFiles({super.key, });
+  const DocxFiles({
+    super.key,
+  });
 
   @override
   State<DocxFiles> createState() => _DocxFilesState();
@@ -32,6 +33,8 @@ class _DocxFilesState extends State<DocxFiles> {
               ),
               backgroundColor: const Color(0xff0771b4),
               centerTitle: true,
+              iconTheme: IconThemeData(color: Colors.white),
+
             ),
             body: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -44,7 +47,9 @@ class _DocxFilesState extends State<DocxFiles> {
 
                   // print(path.endsWith('.docx'));
                   return GestureDetector(
-                    onTap: () => _openFile(path),
+                    onTap: () {
+                      _openFile(path);
+                    },
                     child: Container(
                       margin: const EdgeInsets.only(top: 5),
                       padding: const EdgeInsets.only(top: 8),
