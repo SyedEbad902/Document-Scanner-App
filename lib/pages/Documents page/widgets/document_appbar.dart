@@ -1,17 +1,17 @@
-
 import 'package:flutter/material.dart';
 
 class DocumentAppBar extends StatelessWidget {
   const DocumentAppBar({
     super.key,
   });
- 
+
   @override
   Widget build(BuildContext context) {
     return Container(
       // color: Colors.grey,
       height: 70,
       width: double.infinity,
+      color: Color(0xff9694FF),
       margin: const EdgeInsets.only(
         top: 20,
       ),
@@ -27,9 +27,15 @@ class DocumentAppBar extends StatelessWidget {
               size: 28,
             ),
           ),
+          Align(
+            alignment: Alignment.center,
+            child: Text(
+              "Documents",
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+          ),
           GestureDetector(
-            onTap: () {
-            },
+            onTap: () {},
             child: const Icon(
               Icons.settings,
               size: 30,

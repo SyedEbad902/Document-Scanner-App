@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:open_file/open_file.dart';
 // import 'package:open_file/open_file.dart';
 import 'package:path/path.dart' as p;
+import 'package:pdf_scanner/pages/Personal%20Files/widgets/search_bar.dart';
 import 'package:pdf_scanner/provider/home_screen_provider.dart';
 
 import '../pdf View/pdf_viewer.dart';
-import 'widgets/search_bar.dart';
 
 class GetFiles extends StatefulWidget {
   // final List getFiles;
@@ -17,15 +18,17 @@ class GetFiles extends StatefulWidget {
   State<GetFiles> createState() => _GetFilesState();
 }
 
+TextEditingController searchController = TextEditingController();
+
 class _GetFilesState extends State<GetFiles> {
-  // void _openFile(String path) {
-  //   OpenFile.open(path);
-  // }
+  void _openFile(String path) {
+    OpenFile.open(path);
+  }
 
   @override
   Widget build(BuildContext context) {
     final homeProvider = HomeProvider.of(context);
-    return homeProvider.files.isNotEmpty
+    return homeProvider.filteredFiles.isNotEmpty
         ? Scaffold(
             backgroundColor: Colors.white,
             appBar: AppBar(
@@ -46,7 +49,7 @@ class _GetFilesState extends State<GetFiles> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const CustomSearchBar(),
+                    CustomSearchBar(),
                     const SizedBox(
                       height: 10,
                     ),
@@ -64,21 +67,27 @@ class _GetFilesState extends State<GetFiles> {
                     ListView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: homeProvider.files.length,
+                      itemCount: homeProvider.filteredFiles.length,
                       itemBuilder: (context, index) {
-                        final path = homeProvider.files[index];
+                        final path = homeProvider.filteredFiles[index];
                         String extension = p
-                            .extension(homeProvider.files[index])
+                            .extension(homeProvider.filteredFiles[index])
                             .toLowerCase();
 
                         // print(path.endsWith('.docx'));
                         return GestureDetector(
-                          onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => PdfViewer(
-                                        filepath: path,
-                                      ))),
+                          onTap: () {
+                            if (extension == ".pdf") {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => PdfViewer(
+                                            filepath: path,
+                                          )));
+                            } else {
+                              _openFile(path);
+                            }
+                          },
                           child: Container(
                             margin: const EdgeInsets.only(top: 5),
                             padding: const EdgeInsets.only(top: 8),
@@ -129,10 +138,34 @@ class _GetFilesState extends State<GetFiles> {
               centerTitle: true,
             ),
             body: const Center(
-              child: CircularProgressIndicator(),
+              child: Text(
+                "File not found...",
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+              ),
             ),
           );
   }
+  // void filterFiles(String query) {
+
+  //   List<String> dummySearchList = ;
+  //   if (query.isNotEmpty) {
+  //     List<String> dummyListData = [];
+  //     dummySearchList.forEach((file) {
+  //       if (file.toLowerCase().contains(query.toLowerCase())) {
+  //         dummyListData.add(file);
+  //       }
+  //     });
+  //     setState(() {
+  //       filteredFiles = dummyListData;
+  //     });
+  //   } else {
+  //     setState(() {
+  //       filteredFiles = files;
+  //     });
+  //   }
+  // }
 }
 
 

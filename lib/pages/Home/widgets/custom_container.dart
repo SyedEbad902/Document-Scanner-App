@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pdf_scanner/pages/Docx%20Files/docx_files.dart';
 import 'package:pdf_scanner/pages/Pdf%20Files/pdf_files.dart';
+import 'package:pdf_scanner/provider/home_screen_provider.dart';
 
 import '../../Documents page/documents_screen.dart';
 import '../../Personal Files/personal_file.dart';
@@ -22,6 +23,7 @@ class CustomContainers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final homeProvider = HomeProvider.of(context);
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Column(
@@ -31,12 +33,9 @@ class CustomContainers extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => GetFiles(
-                               
-                              )));
+                  homeProvider.filteredFiles = homeProvider.files;
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => GetFiles()));
                 },
                 child: Container(
                   height: 74,
@@ -86,11 +85,8 @@ class CustomContainers extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => PdfFiles(
-                              )));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => PdfFiles()));
                 },
                 child: Container(
                   height: 74,
@@ -149,11 +145,8 @@ class CustomContainers extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => DocxFiles(
-                              )));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => DocxFiles()));
                 },
                 child: Container(
                   height: 74,

@@ -1,14 +1,18 @@
 import 'dart:io';
 import 'dart:typed_data';
-import 'package:path/path.dart' as p;
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:path/path.dart' as p;
 import 'package:pdfx/pdfx.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
 class HomeProvider extends ChangeNotifier {
   List<String> files = [];
+    List<String> filteredFiles = [];
+  String _searchQuery = '';
+
 
   void showToast(String message) {
     Fluttertoast.showToast(
@@ -50,6 +54,7 @@ class HomeProvider extends ChangeNotifier {
           }
         }
         // setState(() {});
+        filteredFiles = files;
         notifyListeners();
       } catch (e) {
         showToast("Error Reading Directory");
@@ -64,6 +69,16 @@ class HomeProvider extends ChangeNotifier {
     print('Files found: $files');
     return files;
   }
+
+
+  void updateSearchQuery(String query) {
+    _searchQuery = query;
+    filteredFiles = files
+        .where((file) => file.toLowerCase().contains(_searchQuery.toLowerCase()))
+        .toList();
+    notifyListeners();
+  }
+
 
   List<String> pdfFiles = [];
   List<String> docFiles = [];
@@ -84,7 +99,7 @@ class HomeProvider extends ChangeNotifier {
   Uint8List? previewImage;
 
   List<Map<String, dynamic>> pdfPreviews = [];
-  
+
   List<File> pdfFilesPaths = [];
 
   Future<void> loadFiless() async {
