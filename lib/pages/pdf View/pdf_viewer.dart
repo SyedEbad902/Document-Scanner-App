@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pdfx/pdfx.dart';
+import 'package:share_plus/share_plus.dart';
 
 class PdfViewer extends StatefulWidget {
   final filepath;
@@ -38,6 +39,20 @@ class _PdfViewerState extends State<PdfViewer> {
           style: TextStyle(
               color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
         ),
+        actions: [
+          IconButton(
+              onPressed: () async {
+                await Share.shareXFiles([XFile(widget.filepath)]);
+              },
+              icon: const Icon(
+                Icons.share,
+                size: 25,
+                color: Colors.white,
+              )),
+          const SizedBox(
+            width: 10,
+          )
+        ],
       ),
       body: buildUi(),
     );

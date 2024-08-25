@@ -36,7 +36,7 @@ class HomeProvider extends ChangeNotifier {
 
         // List entities in the directory
         final entities = directory.listSync(recursive: true);
-        print('Entities in the directory: $entities');
+        // print('Entities in the directory: $entities');
         for (var entity in entities) {
           if (entity is File) {
             String path = entity.path;
@@ -47,10 +47,10 @@ class HomeProvider extends ChangeNotifier {
                 path.endsWith('.docx') ||
                 path.endsWith('.pdf')) {
               files.add(path);
-              print("File found: $path");
+              // print("File found: $path");
             }
           } else {
-            print("Skipping non-file entity: ${entity.path}");
+            // print("Skipping non-file entity: ${entity.path}");
           }
         }
         // setState(() {});
@@ -58,15 +58,15 @@ class HomeProvider extends ChangeNotifier {
         notifyListeners();
       } catch (e) {
         showToast("Error Reading Directory");
-        print('Error reading directory: $e');
+        // print('Error reading directory: $e');
       }
     } else {
       showToast('Storage permission denied');
 
-      print('Storage permission denied');
+      // print('Storage permission denied');
     }
 
-    print('Files found: $files');
+    // print('Files found: $files');
     return files;
   }
 
@@ -159,7 +159,7 @@ class HomeProvider extends ChangeNotifier {
 
       return Image.memory(pageImage!.bytes);
     } catch (e) {
-      print('Error rendering PDF page: $e');
+      // print('Error rendering PDF page: $e');
       return null;
     }
   }

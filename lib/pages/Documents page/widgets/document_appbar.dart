@@ -11,7 +11,7 @@ class DocumentAppBar extends StatelessWidget {
       // color: Colors.grey,
       height: 70,
       width: double.infinity,
-      color: Color(0xff9694FF),
+      color: const Color(0xff9694FF),
       margin: const EdgeInsets.only(
         top: 20,
       ),
@@ -27,7 +27,7 @@ class DocumentAppBar extends StatelessWidget {
               size: 28,
             ),
           ),
-          Align(
+          const Align(
             alignment: Alignment.center,
             child: Text(
               "Documents",

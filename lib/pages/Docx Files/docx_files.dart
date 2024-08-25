@@ -33,7 +33,7 @@ class _DocxFilesState extends State<DocxFiles> {
               ),
               backgroundColor: const Color(0xff0771b4),
               centerTitle: true,
-              iconTheme: IconThemeData(color: Colors.white),
+              iconTheme: const IconThemeData(color: Colors.white),
 
             ),
             body: Padding(

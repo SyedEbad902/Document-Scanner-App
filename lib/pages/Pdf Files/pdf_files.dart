@@ -32,7 +32,7 @@ class _PdfFilesState extends State<PdfFiles> {
                     color: Colors.white),
               ),
               backgroundColor: Colors.red,
-              iconTheme: IconThemeData(color: Colors.white),
+              iconTheme: const IconThemeData(color: Colors.white),
               centerTitle: true,
             ),
             body: Padding(

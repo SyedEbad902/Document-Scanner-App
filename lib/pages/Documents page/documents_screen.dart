@@ -6,7 +6,6 @@ import 'package:pdf_scanner/provider/document_screen_provider.dart';
 import 'package:pdf_scanner/provider/home_screen_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
-
 class DocumentScreen extends StatefulWidget {
   // final String? imagePath;
 
@@ -35,14 +34,14 @@ class _DocumentScreenState extends State<DocumentScreen> {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          backgroundColor: Color(0xff9694FF),
-          title: Text(
+          backgroundColor: const Color(0xff9694FF),
+          title: const Text(
             "Documents",
             style: TextStyle(
                 fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
           ),
           centerTitle: true,
-          iconTheme: IconThemeData(color: Colors.white),
+          iconTheme: const IconThemeData(color: Colors.white),
           actions: [
             GestureDetector(
               onTap: () {},
@@ -51,7 +50,7 @@ class _DocumentScreenState extends State<DocumentScreen> {
                 size: 30,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             )
           ],
@@ -107,9 +106,7 @@ class _DocumentScreenState extends State<DocumentScreen> {
                                             color: const Color(0xff9694FF))),
                                     height: 90,
                                     width: 50,
-                                    child: pdf['preview'] != null
-                                        ? pdf['preview']
-                                        : null,
+                                    child: pdf['preview'],
                                     //  Image.file(file),
                                     // child: Text(
                                     //   ".pdf",
@@ -130,8 +127,8 @@ class _DocumentScreenState extends State<DocumentScreen> {
                                     style: TextStyle(
                                         fontSize: 12, color: Color(0xff9694FF)),
                                   ),
-                                  trailing: Container(
-                                    width: 71,
+                                  trailing: SizedBox(
+                                    width: 67,
                                     // color: Colors.blue,
                                     child: Row(
                                       children: [
@@ -149,27 +146,53 @@ class _DocumentScreenState extends State<DocumentScreen> {
                                                 homeProvider.loadFiless();
                                               });
                                             },
-                                            child: Icon(
+                                            child: const Icon(
                                               Icons.delete,
-                                              size: 23,
+                                              size: 25,
                                               color: Color(0xff9694FF),
                                             )),
-                                        IconButton(
-                                            onPressed: () {},
-                                            icon: Icon(
-                                              Icons.share,
-                                              size: 23,
-                                              color: Color(0xff9694FF),
-                                            ))
+                                        const SizedBox(
+                                          width: 15,
+                                        ),
+                                        GestureDetector(
+                                            onTap: () async {
+                                              final filePath = homeProvider
+                                                  .pdfPreviews[index]["path"];
+                                              final result =
+                                                  await Share.shareXFiles(
+                                                      [XFile(filePath)]);
+                                              if (result.status ==
+                                                  ShareResultStatus.dismissed) {
+                                                print(
+                                                    'Did you not like the pictures?');
+                                              }
+                                            },
+                                            child: const Icon(Icons.share,
+                                                size: 25,
+                                                color: Color(0xff9694FF))),
+                                        //   I
+                                        // conButton(
+                                        //       onPressed: () async {
+                                        //         final filePath = homeProvider
+                                        //             .pdfPreviews[index]["path"];
+                                        //         // print(
+                                        //         //     "This is file path $filePath");
+                                        //         await Share.shareXFiles(filePath);
+                                        //       },
+                                        //       icon: Icon(
+                                        //         Icons.share,
+                                        //         size: 23,
+                                        //         color: Color(0xff9694FF),
+                                        //       ))
                                       ],
                                     ),
                                   )),
                             ),
                           );
                         })
-                    : Container(
+                    : SizedBox(
                         height: MediaQuery.of(context).size.height * 0.54,
-                        child: Column(
+                        child: const Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Center(child: CircularProgressIndicator()),

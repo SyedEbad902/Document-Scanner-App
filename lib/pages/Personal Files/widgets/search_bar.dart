@@ -12,7 +12,7 @@ class CustomSearchBar extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 5, right: 5),
       child: Container(
-        padding: EdgeInsets.only(top: 5),
+        padding: const EdgeInsets.only(top: 5),
         // margin: EdgeInsets.only(bottom: 5),
         height: 50,
         width: double.infinity,

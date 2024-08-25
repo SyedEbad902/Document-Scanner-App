@@ -35,7 +35,7 @@ class CustomContainers extends StatelessWidget {
                 onTap: () {
                   homeProvider.filteredFiles = homeProvider.files;
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => GetFiles()));
+                      MaterialPageRoute(builder: (context) => const GetFiles()));
                 },
                 child: Container(
                   height: 74,
@@ -86,7 +86,7 @@ class CustomContainers extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => PdfFiles()));
+                      MaterialPageRoute(builder: (context) => const PdfFiles()));
                 },
                 child: Container(
                   height: 74,
@@ -146,7 +146,7 @@ class CustomContainers extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => DocxFiles()));
+                      MaterialPageRoute(builder: (context) => const DocxFiles()));
                 },
                 child: Container(
                   height: 74,

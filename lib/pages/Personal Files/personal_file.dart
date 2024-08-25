@@ -41,7 +41,7 @@ class _GetFilesState extends State<GetFiles> {
               ),
               backgroundColor: const Color(0xff9694FF),
               centerTitle: true,
-              iconTheme: IconThemeData(color: Colors.white),
+              iconTheme: const IconThemeData(color: Colors.white),
             ),
             body: Padding(
               padding: const EdgeInsets.all(10.0),
@@ -49,7 +49,7 @@ class _GetFilesState extends State<GetFiles> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CustomSearchBar(),
+                    const CustomSearchBar(),
                     const SizedBox(
                       height: 10,
                     ),

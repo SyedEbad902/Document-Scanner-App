@@ -25,11 +25,11 @@ class DocumentScreenProvider extends ChangeNotifier {
         await file.delete();
         showToast("File deleted");
       } else {
-        print('File not found: $path');
+        // print('File not found: $path');
         showToast("Error Deleting File");
       }
     } catch (e) {
-      print('Error deleting file: $e');
+      // print('Error deleting file: $e');
     }
   }
 
