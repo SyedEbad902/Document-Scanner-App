@@ -4,6 +4,8 @@ import 'package:open_file/open_file.dart';
 import 'package:path/path.dart' as p;
 import 'package:pdf_scanner/pages/Personal%20Files/widgets/search_bar.dart';
 import 'package:pdf_scanner/provider/home_screen_provider.dart';
+import 'package:pdf_scanner/provider/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../pdf View/pdf_viewer.dart';
 
@@ -28,9 +30,12 @@ class _GetFilesState extends State<GetFiles> {
   @override
   Widget build(BuildContext context) {
     final homeProvider = HomeProvider.of(context);
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
     return homeProvider.files.isNotEmpty
         ? Scaffold(
-            backgroundColor: Colors.white,
+            backgroundColor:
+                themeProvider.isClick ? Colors.black : Colors.white,
             appBar: AppBar(
               title: const Text(
                 'Personal Files',
@@ -39,7 +44,9 @@ class _GetFilesState extends State<GetFiles> {
                     fontSize: 20,
                     fontWeight: FontWeight.bold),
               ),
-              backgroundColor: const Color(0xff9694FF),
+              backgroundColor: themeProvider.isClick
+                  ? const Color(0xff5A5899)
+                  : const Color(0xff9694FF),
               centerTitle: true,
               iconTheme: const IconThemeData(color: Colors.white),
             ),
@@ -96,7 +103,10 @@ class _GetFilesState extends State<GetFiles> {
                                   width: double.infinity,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(20),
-                                      border: Border.all()),
+                                      border: Border.all(
+                                          color: themeProvider.isClick
+                                              ? Colors.white
+                                              : Colors.black)),
                                   child: ListTile(
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
@@ -130,7 +140,7 @@ class _GetFilesState extends State<GetFiles> {
                               );
                             },
                           )
-                        : Center(
+                        : const Center(
                             child: Text(
                               "File not found...",
                               style: TextStyle(

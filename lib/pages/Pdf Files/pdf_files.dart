@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pdf_scanner/pages/pdf%20View/pdf_viewer.dart';
+import 'package:pdf_scanner/provider/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../../provider/home_screen_provider.dart';
 
@@ -20,6 +22,7 @@ class _PdfFilesState extends State<PdfFiles> {
   @override
   Widget build(BuildContext context) {
     final homeProvider = HomeProvider.of(context);
+    final themeProvider = Provider.of<ThemeProvider>(context);
 
     return homeProvider.pdfFiles.isNotEmpty
         ? Scaffold(
@@ -57,7 +60,10 @@ class _PdfFilesState extends State<PdfFiles> {
                       width: double.infinity,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
-                          border: Border.all()),
+                          border: Border.all(
+                              color: themeProvider.isClick
+                                  ? Colors.white
+                                  : Colors.black)),
                       child: ListTile(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),

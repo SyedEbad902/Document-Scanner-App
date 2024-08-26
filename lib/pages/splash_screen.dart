@@ -5,7 +5,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pdf_scanner/provider/navigation_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../navbar/my_nav_bar.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

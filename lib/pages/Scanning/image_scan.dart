@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_doc_scanner/flutter_doc_scanner.dart';
+import 'package:pdf_scanner/provider/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 class DocScanner extends StatefulWidget {
   const DocScanner({super.key});
@@ -48,6 +50,8 @@ class _DocScannerState extends State<DocScanner> {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
     return Scaffold(
         appBar: AppBar(
           toolbarHeight: 70,
@@ -56,7 +60,9 @@ class _DocScannerState extends State<DocScanner> {
             'Document Scanner',
             style: TextStyle(color: Colors.white),
           ),
-          backgroundColor: const Color(0xff9694FF),
+          backgroundColor: themeProvider.isClick
+              ? const Color(0xff5A5899)
+              : const Color(0xff9694FF),
         ),
         body: Center(
           child: Column(
@@ -69,7 +75,9 @@ class _DocScannerState extends State<DocScanner> {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          backgroundColor: const Color(0xff9694FF),
+          backgroundColor: themeProvider.isClick
+              ? const Color(0xff5A5899)
+              : const Color(0xff9694FF),
           onPressed: () {
             scanDocument();
           },

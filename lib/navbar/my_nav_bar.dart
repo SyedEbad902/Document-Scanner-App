@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:pdf_scanner/provider/theme_provider.dart';
+import 'package:provider/provider.dart';
 
+import '../pages/Account page/accounts.dart';
 import '../pages/Home/home_screen.dart';
 import '../pages/Scanning/image_scan.dart';
 
@@ -12,15 +15,14 @@ class MyNavBar extends StatefulWidget {
 
 class _MyNavBarState extends State<MyNavBar> {
   int currentIndex = 0;
-  List screens = [
-    const HomeScreen(),
-     const DocScanner(),
-const Scaffold()  ];
+  List screens = [const HomeScreen(), const DocScanner(), const Accounts()];
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
     return Scaffold(
-      backgroundColor: Colors.white,
-           bottomNavigationBar: Container(
+      backgroundColor: themeProvider.isClick ? Colors.black : Colors.white,
+      bottomNavigationBar: Container(
         height: 70,
         margin: const EdgeInsets.all(20),
         decoration: BoxDecoration(
@@ -30,14 +32,14 @@ const Scaffold()  ];
               color: Colors.grey.withOpacity(0.5), // Shadow color with opacity
               spreadRadius: 5, // Spread radius
               blurRadius: 7, // Blur radius
-              offset: const Offset(0, 3), // Offset in x and y direction
+              offset: const Offset(0, 5), // Offset in x and y direction
             ),
           ],
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(20), // Circular border
           child: BottomAppBar(
-            color: Colors.white,
+            color: themeProvider.isClick ? const Color(0xff708090) : Colors.white,
             clipBehavior: Clip.antiAliasWithSaveLayer,
             child: Padding(
               padding: const EdgeInsets.only(left: 20, right: 20),
@@ -54,8 +56,13 @@ const Scaffold()  ];
                     icon: Icon(
                       Icons.grid_view_outlined,
                       size: 30,
-                      color:
-                          currentIndex == 0 ? const Color(0xff9694FF) : Colors.grey,
+                      color: currentIndex == 0
+                          ? themeProvider.isClick
+                              ? const Color(0xff5A5899)
+                              : const Color(0xff9694FF)
+                          : themeProvider.isClick
+                              ? Colors.white
+                              : Colors.grey,
                     ),
                   ),
                   IconButton(
@@ -67,8 +74,13 @@ const Scaffold()  ];
                     icon: Icon(
                       Icons.document_scanner_outlined,
                       size: 30,
-                      color:
-                          currentIndex == 1 ? const Color(0xff9694FF) : Colors.grey,
+                      color: currentIndex == 1
+                          ? themeProvider.isClick
+                              ? const Color(0xff5A5899)
+                              : const Color(0xff9694FF)
+                          : themeProvider.isClick
+                              ? Colors.white
+                              : Colors.grey,
                     ),
                   ),
                   IconButton(
@@ -80,8 +92,13 @@ const Scaffold()  ];
                     icon: Icon(
                       Icons.person_2_outlined,
                       size: 35,
-                      color:
-                          currentIndex == 2 ? const Color(0xff9694FF) : Colors.grey,
+                      color: currentIndex == 2
+                          ? themeProvider.isClick
+                              ? const Color(0xff5A5899)
+                              : const Color(0xff9694FF)
+                          : themeProvider.isClick
+                              ? Colors.white
+                              : Colors.grey,
                     ),
                   ),
                 ],

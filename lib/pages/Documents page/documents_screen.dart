@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:pdf_scanner/pages/pdf%20View/pdf_viewer.dart';
 import 'package:pdf_scanner/provider/document_screen_provider.dart';
 import 'package:pdf_scanner/provider/home_screen_provider.dart';
+import 'package:pdf_scanner/provider/theme_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
 class DocumentScreen extends StatefulWidget {
@@ -29,12 +31,16 @@ class _DocumentScreenState extends State<DocumentScreen> {
   Widget build(BuildContext context) {
     final homeProvider = HomeProvider.of(context);
     final documentProvider = DocumentScreenProvider.of(context);
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
     // String imageName = widget.imagePath.split('/').last;
 
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: themeProvider.isClick ? Colors.black : Colors.white,
         appBar: AppBar(
-          backgroundColor: const Color(0xff9694FF),
+          backgroundColor: themeProvider.isClick
+              ? const Color(0xff5A5899)
+              : const Color(0xff9694FF),
           title: const Text(
             "Documents",
             style: TextStyle(
@@ -94,7 +100,10 @@ class _DocumentScreenState extends State<DocumentScreen> {
                               width: double.infinity,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20),
-                                  border: Border.all()),
+                                  border: Border.all(
+                                      color: themeProvider.isClick
+                                          ? Colors.white
+                                          : Colors.black)),
                               child: ListTile(
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(20)),
@@ -103,7 +112,10 @@ class _DocumentScreenState extends State<DocumentScreen> {
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
                                         border: Border.all(
-                                            color: const Color(0xff9694FF))),
+                                          color: themeProvider.isClick
+                                              ? const Color(0xff5A5899)
+                                              : const Color(0xff9694FF),
+                                        )),
                                     height: 90,
                                     width: 50,
                                     child: pdf['preview'],
@@ -146,10 +158,12 @@ class _DocumentScreenState extends State<DocumentScreen> {
                                                 homeProvider.loadFiless();
                                               });
                                             },
-                                            child: const Icon(
+                                            child: Icon(
                                               Icons.delete,
                                               size: 25,
-                                              color: Color(0xff9694FF),
+                                              color: themeProvider.isClick
+                                                  ? const Color(0xff5A5899)
+                                                  : const Color(0xff9694FF),
                                             )),
                                         const SizedBox(
                                           width: 15,
@@ -167,9 +181,13 @@ class _DocumentScreenState extends State<DocumentScreen> {
                                                     'Did you not like the pictures?');
                                               }
                                             },
-                                            child: const Icon(Icons.share,
-                                                size: 25,
-                                                color: Color(0xff9694FF))),
+                                            child: Icon(
+                                              Icons.share,
+                                              size: 25,
+                                              color: themeProvider.isClick
+                                                  ? const Color(0xff5A5899)
+                                                  : const Color(0xff9694FF),
+                                            )),
                                         //   I
                                         // conButton(
                                         //       onPressed: () async {

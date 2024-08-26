@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:pdf_scanner/provider/home_screen_provider.dart';
+import 'package:pdf_scanner/provider/theme_provider.dart';
 import 'package:provider/provider.dart';
 
 import 'widgets/appbar.dart';
@@ -19,6 +20,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   bool dataLoaded = false;
+
   @override
   void initState() {
     super.initState();
@@ -164,8 +166,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final provider = HomeProvider.of(context);
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: themeProvider.isClick ? Colors.black : Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: SingleChildScrollView(
@@ -173,11 +177,11 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const CustomAppBar(),
-              const Text(
+              Text(
                 "Dashboard Files",
                 style: TextStyle(
                     fontSize: 24,
-                    color: Colors.black,
+                    color: themeProvider.isClick ? Colors.white : Colors.black,
                     fontWeight: FontWeight.bold),
               ),
               const SizedBox(

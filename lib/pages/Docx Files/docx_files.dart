@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:open_file/open_file.dart';
+import 'package:provider/provider.dart';
 
 import '../../provider/home_screen_provider.dart';
+import '../../provider/theme_provider.dart';
 
 class DocxFiles extends StatefulWidget {
   const DocxFiles({
@@ -20,6 +22,7 @@ class _DocxFilesState extends State<DocxFiles> {
   @override
   Widget build(BuildContext context) {
     final homeProvider = HomeProvider.of(context);
+    final themeProvider = Provider.of<ThemeProvider>(context);
 
     return homeProvider.docFiles.isNotEmpty
         ? Scaffold(
@@ -34,7 +37,6 @@ class _DocxFilesState extends State<DocxFiles> {
               backgroundColor: const Color(0xff0771b4),
               centerTitle: true,
               iconTheme: const IconThemeData(color: Colors.white),
-
             ),
             body: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -57,7 +59,10 @@ class _DocxFilesState extends State<DocxFiles> {
                       width: double.infinity,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
-                          border: Border.all()),
+                          border: Border.all(
+                              color: themeProvider.isClick
+                                  ? Colors.white
+                                  : Colors.black)),
                       child: ListTile(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),

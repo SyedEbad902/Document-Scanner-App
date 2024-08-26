@@ -1,13 +1,21 @@
-
 import 'package:flutter/material.dart';
+import 'package:pdf_scanner/provider/theme_provider.dart';
+import 'package:provider/provider.dart';
 
-class CustomAppBar extends StatelessWidget {
+class CustomAppBar extends StatefulWidget {
   const CustomAppBar({
     super.key,
   });
 
   @override
+  State<CustomAppBar> createState() => _CustomAppBarState();
+}
+
+class _CustomAppBarState extends State<CustomAppBar> {
+  @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<ThemeProvider>(context);
+
     return Container(
       // color: Colors.grey,
       height: 70,
@@ -21,7 +29,7 @@ class CustomAppBar extends StatelessWidget {
           GestureDetector(
             onTap: () {
               // num num1 = 0.2;
-             
+
               // print(_diceface);
             },
             child: const Icon(
@@ -31,9 +39,23 @@ class CustomAppBar extends StatelessWidget {
           ),
 
           // ),
-          const CircleAvatar(
-            radius: 17,
-            backgroundColor: Colors.black,
+          // const CircleAvatar(
+          //   radius: 17,
+          //   backgroundColor: Colors.black,
+          // )
+
+          IconButton(
+            onPressed: () {
+              setState(() {
+                provider.isClick = !provider.isClick;
+              });
+              provider.setTheme();
+            },
+            icon: Icon(
+              provider.isClick ? Icons.light_mode : Icons.dark_mode,
+              size: 30,
+            ),
+            color: provider.isClick ? Colors.white : Colors.black,
           )
         ],
       ),
