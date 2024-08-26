@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pdf_scanner/provider/navigation_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../navbar/my_nav_bar.dart';
 
@@ -20,13 +22,17 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(const Duration(seconds: 2), () {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => const MyNavBar()));
+                  Provider.of<NavigationProvider>(context, listen: false).replaceWith(context,'/second');
+
+      // Navigator.pushReplacement(
+      //     context, MaterialPageRoute(builder: (context) => const MyNavBar()));
+    
     });
   }  
   @override
   
   Widget build(BuildContext context) {
+
     return  SafeArea(
       child: Scaffold(
         body: Center(

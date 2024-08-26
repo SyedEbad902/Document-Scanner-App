@@ -28,7 +28,7 @@ class _GetFilesState extends State<GetFiles> {
   @override
   Widget build(BuildContext context) {
     final homeProvider = HomeProvider.of(context);
-    return homeProvider.filteredFiles.isNotEmpty
+    return homeProvider.files.isNotEmpty
         ? Scaffold(
             backgroundColor: Colors.white,
             appBar: AppBar(
@@ -64,86 +64,101 @@ class _GetFilesState extends State<GetFiles> {
                     const SizedBox(
                       height: 10,
                     ),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: homeProvider.filteredFiles.length,
-                      itemBuilder: (context, index) {
-                        final path = homeProvider.filteredFiles[index];
-                        String extension = p
-                            .extension(homeProvider.filteredFiles[index])
-                            .toLowerCase();
+                    homeProvider.filteredFiles.isNotEmpty
+                        ? ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: homeProvider.filteredFiles.length,
+                            itemBuilder: (context, index) {
+                              final path = homeProvider.filteredFiles[index];
+                              String extension = p
+                                  .extension(homeProvider.filteredFiles[index])
+                                  .toLowerCase();
 
-                        // print(path.endsWith('.docx'));
-                        return GestureDetector(
-                          onTap: () {
-                            if (extension == ".pdf") {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => PdfViewer(
-                                            filepath: path,
-                                          )));
-                            } else {
-                              _openFile(path);
-                            }
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.only(top: 5),
-                            padding: const EdgeInsets.only(top: 8),
-                            height: 73,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                border: Border.all()),
-                            child: ListTile(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20)),
-                              leading: Container(
-                                // padding: EdgeInsets.only(top: 20),
+                              // print(path.endsWith('.docx'));
+                              return GestureDetector(
+                                onTap: () {
+                                  if (extension == ".pdf") {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => PdfViewer(
+                                                  filepath: path,
+                                                )));
+                                  } else {
+                                    _openFile(path);
+                                  }
+                                },
+                                child: Container(
+                                  margin: const EdgeInsets.only(top: 5),
+                                  padding: const EdgeInsets.only(top: 8),
+                                  height: 73,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      border: Border.all()),
+                                  child: ListTile(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(20)),
+                                    leading: Container(
+                                      // padding: EdgeInsets.only(top: 20),
 
-                                child: extension == ".pdf"
-                                    ? Image.asset(
-                                        "assets/images/pdf1.png",
-                                        fit: BoxFit.contain,
-                                        height: 50,
-                                        width: 50,
-                                        // color: Colors.transparent,
-                                      )
-                                    : Image.asset(
-                                        "assets/images/docx.png",
-                                        height: 50,
-                                        width: 50,
-                                        fit: BoxFit.cover,
-                                      ),
-                              ),
-                              title: Text(
-                                path.split('/').last,
-                                style: const TextStyle(
-                                    fontSize: 12, fontWeight: FontWeight.bold),
+                                      child: extension == ".pdf"
+                                          ? Image.asset(
+                                              "assets/images/pdf1.png",
+                                              fit: BoxFit.contain,
+                                              height: 50,
+                                              width: 50,
+                                              // color: Colors.transparent,
+                                            )
+                                          : Image.asset(
+                                              "assets/images/docx.png",
+                                              height: 50,
+                                              width: 50,
+                                              fit: BoxFit.cover,
+                                            ),
+                                    ),
+                                    title: Text(
+                                      path.split('/').last,
+                                      style: const TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          )
+                        : Center(
+                            child: Text(
+                              "File not found...",
+                              style: TextStyle(
+                                fontSize: 16,
                               ),
                             ),
-                          ),
-                        );
-                      },
-                    ),
+                          )
                   ],
                 ),
               ),
             ),
           )
         : Scaffold(
+            backgroundColor: Colors.white,
             appBar: AppBar(
-              title: const Text('Document Files'),
+              title: const Text(
+                'Personal Files',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
+              backgroundColor: const Color(0xff9694FF),
               centerTitle: true,
+              iconTheme: const IconThemeData(color: Colors.white),
             ),
             body: const Center(
-              child: Text(
-                "File not found...",
-                style: TextStyle(
-                  fontSize: 20,
-                ),
-              ),
+              child: CircularProgressIndicator(),
             ),
           );
   }
