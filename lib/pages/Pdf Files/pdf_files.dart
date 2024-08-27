@@ -26,6 +26,9 @@ class _PdfFilesState extends State<PdfFiles> {
 
     return homeProvider.pdfFiles.isNotEmpty
         ? Scaffold(
+                backgroundColor:
+                themeProvider.isClick ? Color(0xff121212) : Colors.white,
+
             appBar: AppBar(
               title: const Text(
                 'Pdf Files',

@@ -21,7 +21,7 @@ class _MyNavBarState extends State<MyNavBar> {
     final themeProvider = Provider.of<ThemeProvider>(context);
 
     return Scaffold(
-      backgroundColor: themeProvider.isClick ? Colors.black : Colors.white,
+      backgroundColor: themeProvider.isClick ? Color(0xff121212) : Colors.white,
       bottomNavigationBar: Container(
         height: 70,
         margin: const EdgeInsets.all(20),
@@ -39,7 +39,8 @@ class _MyNavBarState extends State<MyNavBar> {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(20), // Circular border
           child: BottomAppBar(
-            color: themeProvider.isClick ? const Color(0xff708090) : Colors.white,
+            color:
+                themeProvider.isClick ? const Color(0xff1e1e1e) : Colors.white,
             clipBehavior: Clip.antiAliasWithSaveLayer,
             child: Padding(
               padding: const EdgeInsets.only(left: 20, right: 20),

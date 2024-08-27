@@ -53,6 +53,9 @@ class _DocScannerState extends State<DocScanner> {
     final themeProvider = Provider.of<ThemeProvider>(context);
 
     return Scaffold(
+            backgroundColor:
+            themeProvider.isClick ? Color(0xff121212) : Colors.white,
+
         appBar: AppBar(
           toolbarHeight: 70,
           centerTitle: true,

@@ -36,7 +36,8 @@ class _DocumentScreenState extends State<DocumentScreen> {
     // String imageName = widget.imagePath.split('/').last;
 
     return Scaffold(
-        backgroundColor: themeProvider.isClick ? Colors.black : Colors.white,
+        backgroundColor:
+            themeProvider.isClick ? Color(0xff121212) : Colors.white,
         appBar: AppBar(
           backgroundColor: themeProvider.isClick
               ? const Color(0xff5A5899)

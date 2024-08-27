@@ -43,20 +43,36 @@ class _CustomAppBarState extends State<CustomAppBar> {
           //   radius: 17,
           //   backgroundColor: Colors.black,
           // )
-
-          IconButton(
+IconButton(
             onPressed: () {
-              setState(() {
-                provider.isClick = !provider.isClick;
-              });
-              provider.setTheme();
+              // Get the ThemeProvider instance from the context
+              final themeProvider =
+                  Provider.of<ThemeProvider>(context, listen: false);
+
+              // Call the toggleTheme method to change the theme
+              themeProvider.toggleTheme();
             },
             icon: Icon(
+              // Use the isClick to determine the icon
               provider.isClick ? Icons.light_mode : Icons.dark_mode,
               size: 30,
             ),
             color: provider.isClick ? Colors.white : Colors.black,
           )
+          // IconButton(
+          //   onPressed: () {
+          //     setState(() {
+          //       provider.isClick = !provider.isClick;
+          //     });
+          //     provider.setTheme();
+             
+          //   },
+          //   icon: Icon(
+          //     provider.isClick ? Icons.light_mode : Icons.dark_mode,
+          //     size: 30,
+          //   ),
+          //   color: provider.isClick ? Colors.white : Colors.black,
+          // )
         ],
       ),
     );

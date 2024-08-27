@@ -34,8 +34,9 @@ class _GetFilesState extends State<GetFiles> {
 
     return homeProvider.files.isNotEmpty
         ? Scaffold(
-            backgroundColor:
-                themeProvider.isClick ? Colors.black : Colors.white,
+                  backgroundColor:
+                themeProvider.isClick ? Color(0xff121212) : Colors.white,
+
             appBar: AppBar(
               title: const Text(
                 'Personal Files',

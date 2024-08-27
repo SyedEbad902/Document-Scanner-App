@@ -169,7 +169,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final themeProvider = Provider.of<ThemeProvider>(context);
 
     return Scaffold(
-      backgroundColor: themeProvider.isClick ? Colors.black : Colors.white,
+      backgroundColor: themeProvider.isClick ? Color(0xff121212) : Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: SingleChildScrollView(

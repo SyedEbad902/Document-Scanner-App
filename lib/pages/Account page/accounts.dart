@@ -10,6 +10,7 @@ class Accounts extends StatelessWidget {
     final themeProvider = Provider.of<ThemeProvider>(context);
 
     return Scaffold(
+      backgroundColor: themeProvider.isClick ? Color(0xff121212) : Colors.white,
       appBar: AppBar(
         toolbarHeight: 70,
         centerTitle: true,
@@ -17,8 +18,9 @@ class Accounts extends StatelessWidget {
           'Account',
           style: TextStyle(color: Colors.white),
         ),
-        backgroundColor:
-            themeProvider.isClick ? const Color(0xff5A5899) : const Color(0xff9694FF),
+        backgroundColor: themeProvider.isClick
+            ? const Color(0xff5A5899)
+            : const Color(0xff9694FF),
       ),
       body: const Center(
         child: Text("Accounts Page"),
